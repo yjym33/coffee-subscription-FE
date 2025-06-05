@@ -1,67 +1,95 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import Image from "next/image"
-import Link from "next/link"
-import { Card, CardContent, CardFooter } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { ShoppingCart } from "lucide-react"
-
-// Sample product data
-const products = [
-  {
-    id: 1,
-    name: "Ethiopian Yirgacheffe",
-    description: "Bright, floral notes with citrus acidity",
-    price: 16.99,
-    image: "/placeholder.svg?height=300&width=300",
-    acidity: "High",
-    body: "Medium",
-    caffeine: "Regular",
-    origin: "Single Origin",
-    featured: true,
-  },
-  {
-    id: 2,
-    name: "Colombian Supremo",
-    description: "Sweet caramel with nutty undertones",
-    price: 14.99,
-    image: "/placeholder.svg?height=300&width=300",
-    acidity: "Medium",
-    body: "Full",
-    caffeine: "Regular",
-    origin: "Single Origin",
-    featured: true,
-  },
-  {
-    id: 3,
-    name: "Decaf Sumatra",
-    description: "Earthy, herbal with low acidity",
-    price: 15.99,
-    image: "/placeholder.svg?height=300&width=300",
-    acidity: "Low",
-    body: "Full",
-    caffeine: "Decaf",
-    origin: "Single Origin",
-    featured: true,
-  },
-  {
-    id: 4,
-    name: "Breakfast Blend",
-    description: "Balanced, smooth with chocolate notes",
-    price: 13.99,
-    image: "/placeholder.svg?height=300&width=300",
-    acidity: "Medium",
-    body: "Medium",
-    caffeine: "Regular",
-    origin: "Blend",
-    featured: true,
-  },
-]
+import { useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { ShoppingCart, Check } from "lucide-react";
+import { useLanguage } from "@/hooks/use-language";
+import { useCart } from "@/hooks/use-cart";
+import { t } from "@/lib/translations";
 
 export default function FeaturedProducts() {
-  const [hoveredProduct, setHoveredProduct] = useState<number | null>(null)
+  const [hoveredProduct, setHoveredProduct] = useState<number | null>(null);
+  const [addedProducts, setAddedProducts] = useState<Set<number>>(new Set());
+  const { language } = useLanguage();
+  const { addItem } = useCart();
+
+  const products = [
+    {
+      id: 1,
+      nameKey: "products.ethiopianYirgacheffe.name",
+      descriptionKey: "products.ethiopianYirgacheffe.description",
+      price: 16.99,
+      image: "/placeholder.svg?height=300&width=300",
+      acidity: "high",
+      body: "medium",
+      caffeine: "regular",
+      origin: "singleOrigin",
+      featured: true,
+    },
+    {
+      id: 2,
+      nameKey: "products.colombianSupremo.name",
+      descriptionKey: "products.colombianSupremo.description",
+      price: 14.99,
+      image: "/placeholder.svg?height=300&width=300",
+      acidity: "medium",
+      body: "full",
+      caffeine: "regular",
+      origin: "singleOrigin",
+      featured: true,
+    },
+    {
+      id: 3,
+      nameKey: "products.decafSumatra.name",
+      descriptionKey: "products.decafSumatra.description",
+      price: 15.99,
+      image: "/placeholder.svg?height=300&width=300",
+      acidity: "low",
+      body: "full",
+      caffeine: "decaf",
+      origin: "singleOrigin",
+      featured: true,
+    },
+    {
+      id: 4,
+      nameKey: "products.breakfastBlend.name",
+      descriptionKey: "products.breakfastBlend.description",
+      price: 13.99,
+      image: "/placeholder.svg?height=300&width=300",
+      acidity: "medium",
+      body: "medium",
+      caffeine: "regular",
+      origin: "blend",
+      featured: true,
+    },
+  ];
+
+  const handleAddToCart = (product: (typeof products)[0]) => {
+    addItem({
+      id: product.id,
+      nameKey: product.nameKey,
+      descriptionKey: product.descriptionKey,
+      price: product.price,
+      image: product.image,
+      acidity: product.acidity,
+      body: product.body,
+      caffeine: product.caffeine,
+    });
+
+    // Show added state temporarily
+    setAddedProducts((prev) => new Set(prev).add(product.id));
+    setTimeout(() => {
+      setAddedProducts((prev) => {
+        const newSet = new Set(prev);
+        newSet.delete(product.id);
+        return newSet;
+      });
+    }, 2000);
+  };
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -75,42 +103,70 @@ export default function FeaturedProducts() {
           <div className="relative aspect-square overflow-hidden">
             <Image
               src={product.image || "/placeholder.svg"}
-              alt={product.name}
+              alt={t(product.nameKey, language)}
               fill
               className="object-cover transition-transform duration-300 ease-in-out"
               style={{
-                transform: hoveredProduct === product.id ? "scale(1.05)" : "scale(1)",
+                transform:
+                  hoveredProduct === product.id ? "scale(1.05)" : "scale(1)",
               }}
             />
           </div>
           <CardContent className="p-4">
             <div className="flex justify-between items-start mb-2">
-              <h3 className="font-semibold">{product.name}</h3>
-              <span className="font-medium text-amber-800">${product.price}</span>
+              <h3 className="font-semibold">{t(product.nameKey, language)}</h3>
+              <span className="font-medium text-amber-800">
+                ${product.price}
+              </span>
             </div>
-            <p className="text-sm text-muted-foreground mb-3">{product.description}</p>
+            <p className="text-sm text-muted-foreground mb-3">
+              {t(product.descriptionKey, language)}
+            </p>
             <div className="flex flex-wrap gap-1 mb-2">
               <Badge variant="outline" className="text-xs">
-                {product.acidity} Acidity
+                {t(`products.${product.acidity}`, language)}{" "}
+                {t("products.acidity", language)}
               </Badge>
               <Badge variant="outline" className="text-xs">
-                {product.body} Body
+                {t(`products.${product.body}`, language)}{" "}
+                {t("products.body", language)}
               </Badge>
               <Badge variant="outline" className="text-xs">
-                {product.caffeine}
+                {t(`products.${product.caffeine}`, language)}
               </Badge>
             </div>
           </CardContent>
           <CardFooter className="p-4 pt-0 flex gap-2">
             <Button asChild variant="outline" size="sm" className="flex-1">
-              <Link href={`/product/${product.id}`}>Details</Link>
+              <Link href={`/product/${product.id}`}>
+                {t("products.details", language)}
+              </Link>
             </Button>
-            <Button size="sm" className="flex-1 bg-amber-800 hover:bg-amber-900">
-              <ShoppingCart className="h-4 w-4 mr-2" /> Add
+            <Button
+              size="sm"
+              className={`flex-1 transition-colors ${
+                addedProducts.has(product.id)
+                  ? "bg-green-600 hover:bg-green-700"
+                  : "bg-amber-800 hover:bg-amber-900"
+              }`}
+              onClick={() => handleAddToCart(product)}
+              disabled={addedProducts.has(product.id)}
+            >
+              {addedProducts.has(product.id) ? (
+                <>
+                  <Check className="h-4 w-4 mr-2" />
+                  {t("products.added", language)}
+                </>
+              ) : (
+                <>
+                  <ShoppingCart className="h-4 w-4 mr-2" />
+                  {t("products.add", language)}
+                </>
+              )}
             </Button>
           </CardFooter>
         </Card>
       ))}
     </div>
-  )
+  );
 }

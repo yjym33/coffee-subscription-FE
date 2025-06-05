@@ -1,26 +1,31 @@
+"use client";
+
 import React from "react";
+import { useLanguage } from "@/hooks/use-language";
+import { t } from "@/lib/translations";
 
 export default function AboutUsPage() {
+  const { language } = useLanguage();
+
   return (
     <div className="container mx-auto px-4 py-12 md:px-6 lg:py-16">
       <div className="space-y-8">
         <div className="text-center">
           <h1 className="text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
-            커피 구독 정보
+            {t("about.title", language)}
           </h1>
           <p className="mt-4 text-lg text-gray-600 dark:text-gray-400">
-            당신의 완벽한 커피/티 경험을 찾아드립니다.
+            {t("about.subtitle", language)}
           </p>
         </div>
 
         <div className="grid gap-8 md:grid-cols-2 lg:gap-12">
           <div>
-            <h2 className="text-3xl font-semibold">우리의 미션</h2>
+            <h2 className="text-3xl font-semibold">
+              {t("about.mission.title", language)}
+            </h2>
             <p className="mt-4 text-gray-700 dark:text-gray-300">
-              저희는 사용자의 섬세한 취향과 라이프스타일에 맞춰 최적의 커피와
-              티를 추천하고, 정기 구독을 통해 편리하게 즐기실 수 있도록 돕는
-              것을 목표로 합니다. 단순한 상품 판매를 넘어, 각자의 일상에 특별한
-              향미와 휴식을 더하는 경험을 제공하고자 합니다.
+              {t("about.mission.description", language)}
             </p>
           </div>
           <div>

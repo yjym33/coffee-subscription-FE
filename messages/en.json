@@ -1,0 +1,195 @@
+{
+  "header": {
+    "home": "Home",
+    "shop": "Shop",
+    "subscriptions": "Subscriptions",
+    "about": "About Us",
+    "signIn": "Sign In",
+    "createAccount": "Create Account",
+    "cart": "Cart",
+    "myAccount": "My Account",
+    "mySubscriptions": "My Subscriptions"
+  },
+  "hero": {
+    "badge": "Personalized Coffee Experience",
+    "title": "Coffee tailored to your taste",
+    "description": "Discover coffee beans tailored to your unique preferences. Our intelligent platform analyzes your taste profile to deliver the perfect brew, right to your doorstep.",
+    "findMatch": "Find Your Perfect Match",
+    "browseCatalog": "Browse Catalog"
+  },
+  "features": {
+    "personalizedSelection": {
+      "title": "Personalized Selection",
+      "description": "Our algorithm analyzes your taste preferences to recommend coffee beans that match your unique profile."
+    },
+    "flexibleDelivery": {
+      "title": "Flexible Delivery",
+      "description": "Choose from weekly, bi-weekly, or monthly deliveries. Pause, modify, or cancel anytime."
+    },
+    "alwaysFresh": {
+      "title": "Always Fresh",
+      "description": "We roast to order, ensuring your coffee maintains optimal freshness every time."
+    }
+  },
+  "howItWorks": {
+    "title": "How Coffee Subscription Works",
+    "description": "Follow these simple steps to start your personalized coffee subscription.",
+    "steps": {
+      "profile": {
+        "title": "Create Profile",
+        "description": "Take our taste quiz to help us understand your coffee preferences."
+      },
+      "recommendations": {
+        "title": "Get Recommendations",
+        "description": "We recommend coffee beans that match your taste profile."
+      },
+      "schedule": {
+        "title": "Choose Delivery Schedule",
+        "description": "Select your delivery frequency and customize your subscription."
+      },
+      "enjoy": {
+        "title": "Enjoy Fresh Coffee",
+        "description": "Freshly roasted coffee beans arrive at your doorstep."
+      }
+    }
+  },
+  "featuredProducts": {
+    "title": "Featured Coffee Selections",
+    "description": "Discover our popular coffee selections.",
+    "viewAll": "View All Products"
+  },
+  "products": {
+    "details": "Details",
+    "add": "Add",
+    "added": "Added",
+    "acidity": "Acidity",
+    "body": "Body",
+    "high": "High",
+    "medium": "Medium",
+    "low": "Low",
+    "full": "Full",
+    "regular": "Regular",
+    "decaf": "Decaf",
+    "singleOrigin": "Single Origin",
+    "blend": "Blend",
+    "ethiopianYirgacheffe": {
+      "name": "Ethiopian Yirgacheffe",
+      "description": "Bright, floral notes with citrus acidity"
+    },
+    "colombianSupremo": {
+      "name": "Colombian Supremo",
+      "description": "Sweet caramel with nutty undertones"
+    },
+    "decafSumatra": {
+      "name": "Decaf Sumatra",
+      "description": "Earthy, herbal with low acidity"
+    },
+    "breakfastBlend": {
+      "name": "Breakfast Blend",
+      "description": "Balanced, smooth with chocolate notes"
+    }
+  },
+  "cart": {
+    "title": "Shopping Cart",
+    "empty": {
+      "title": "Your cart is empty",
+      "description": "You haven't added any items yet. Let's find some delicious coffee for you!",
+      "shopNow": "Shop Now"
+    },
+    "summary": {
+      "title": "Order Summary",
+      "subtotal": "Subtotal",
+      "shipping": "Shipping",
+      "freeShipping": "Free Shipping",
+      "tax": "Tax",
+      "total": "Total"
+    },
+    "item": {
+      "quantity": "Quantity",
+      "remove": "Remove",
+      "price": "Price"
+    },
+    "checkout": "Proceed to Checkout",
+    "continueShopping": "Continue Shopping",
+    "itemsInCart": "You have {count} items in your cart",
+    "freeShippingNotice": "Add {amount} more for free shipping!"
+  },
+  "testimonials": {
+    "title": "What Our Customers Say",
+    "description": "Thousands of coffee lovers have found their perfect coffee.",
+    "customers": {
+      "customer1": {
+        "name": "Young Ho Lee",
+        "role": "Coffee Enthusiast",
+        "content": "The personalized subscription has completely transformed my morning routine. It's so much better than just ordering coffee beans!"
+      },
+      "customer2": {
+        "name": "Ji Su Kim",
+        "role": "Home Barista",
+        "content": "I love how the subscription adapts to my feedback. Each delivery brings me closer to my perfect cup of coffee."
+      },
+      "customer3": {
+        "name": "Jin Hyeong Lee",
+        "role": "Daily Coffee Drinker",
+        "content": "The flexibility to pause the subscription when I travel is great. And when I return, the coffee is always fresh!"
+      }
+    }
+  },
+  "about": {
+    "title": "About Coffee Subscription",
+    "subtitle": "Finding your perfect coffee/tea experience.",
+    "mission": {
+      "title": "Our Mission",
+      "description": "We aim to recommend the best coffee and tea tailored to your delicate tastes and lifestyle, helping you enjoy them conveniently through regular subscriptions. Beyond simple product sales, we want to provide an experience that adds special flavors and relaxation to your daily life."
+    }
+  },
+  "footer": {
+    "description": "Personalized coffee subscriptions tailored to your taste preferences.",
+    "shop": {
+      "title": "Shop",
+      "allProducts": "All Products",
+      "subscriptionPlans": "Subscription Plans",
+      "giftCards": "Gift Cards",
+      "brewingEquipment": "Brewing Equipment"
+    },
+    "company": {
+      "title": "Company",
+      "aboutUs": "About Us",
+      "blog": "Blog",
+      "careers": "Careers",
+      "contact": "Contact"
+    },
+    "support": {
+      "title": "Support",
+      "faq": "FAQ",
+      "shippingReturns": "Shipping & Returns",
+      "privacyPolicy": "Privacy Policy",
+      "termsOfService": "Terms of Service"
+    },
+    "copyright": "© {year} Bean Bliss. All rights reserved."
+  },
+  "cta": {
+    "title": "Start Your Coffee Journey",
+    "description": "Take our taste quiz and discover coffee beans tailored to your preferences.",
+    "createAccount": "Create Account"
+  },
+  "login": {
+    "title": "Welcome",
+    "description": "Sign in to your Bean Bliss account",
+    "email": "Email",
+    "password": "Password",
+    "forgotPassword": "Forgot Password",
+    "noAccount": "Don't have an account?",
+    "orContinue": "Or continue with",
+    "signingIn": "Signing in..."
+  },
+  "theme": {
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System"
+  },
+  "language": {
+    "korean": "한국어",
+    "english": "English"
+  }
+}

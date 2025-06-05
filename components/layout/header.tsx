@@ -11,20 +11,29 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Badge } from "@/components/ui/badge";
 import { Coffee, Menu, ShoppingCart, User } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ModeToggle } from "../common/mode-toggle";
+import { LanguageToggle } from "../common/language-toggle";
+import { useLanguage } from "@/hooks/use-language";
+import { useCart } from "@/hooks/use-cart";
+import { t } from "@/lib/translations";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
+  const { language } = useLanguage();
+  const { getTotalItems } = useCart();
 
   const routes = [
-    { href: "/", label: "Home" },
-    { href: "/catalog", label: "Shop" },
-    { href: "/subscriptions", label: "Subscriptions" },
-    { href: "/about", label: "About Us" },
+    { href: "/", label: t("header.home", language) },
+    { href: "/catalog", label: t("header.shop", language) },
+    { href: "/subscriptions", label: t("header.subscriptions", language) },
+    { href: "/about", label: t("header.about", language) },
   ];
+
+  const cartItemsCount = getTotalItems();
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -52,10 +61,12 @@ export default function Header() {
                 ))}
                 <div className="flex flex-col gap-2 mt-4">
                   <Button asChild variant="default" className="w-full">
-                    <Link href="/login">Sign In</Link>
+                    <Link href="/login">{t("header.signIn", language)}</Link>
                   </Button>
                   <Button asChild variant="outline" className="w-full">
-                    <Link href="/register">Create Account</Link>
+                    <Link href="/register">
+                      {t("header.createAccount", language)}
+                    </Link>
                   </Button>
                 </div>
               </div>
@@ -85,11 +96,20 @@ export default function Header() {
           </nav>
         </div>
         <div className="flex items-center gap-2">
+          <LanguageToggle />
           <ModeToggle />
-          <Button variant="ghost" size="icon" asChild>
+          <Button variant="ghost" size="icon" asChild className="relative">
             <Link href="/cart">
               <ShoppingCart className="h-5 w-5" />
-              <span className="sr-only">Cart</span>
+              {cartItemsCount > 0 && (
+                <Badge
+                  variant="destructive"
+                  className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 text-xs bg-amber-800 hover:bg-amber-800"
+                >
+                  {cartItemsCount > 99 ? "99+" : cartItemsCount}
+                </Badge>
+              )}
+              <span className="sr-only">{t("header.cart", language)}</span>
             </Link>
           </Button>
           <DropdownMenu>
@@ -101,16 +121,22 @@ export default function Header() {
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
               <DropdownMenuItem asChild>
-                <Link href="/login">Sign In</Link>
+                <Link href="/login">{t("header.signIn", language)}</Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
-                <Link href="/register">Create Account</Link>
+                <Link href="/register">
+                  {t("header.createAccount", language)}
+                </Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
-                <Link href="/my-account">My Account</Link>
+                <Link href="/my-account">
+                  {t("header.myAccount", language)}
+                </Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
-                <Link href="/my-subscriptions">My Subscriptions</Link>
+                <Link href="/my-subscriptions">
+                  {t("header.mySubscriptions", language)}
+                </Link>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
