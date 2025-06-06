@@ -191,5 +191,94 @@
   "language": {
     "korean": "한국어",
     "english": "English"
+  },
+  "myAccount": {
+    "title": "내 계정",
+    "profile": {
+      "title": "프로필 정보",
+      "name": "이름",
+      "email": "이메일",
+      "phone": "전화번호",
+      "birthday": "생년월일",
+      "edit": "수정",
+      "save": "저장",
+      "cancel": "취소"
+    },
+    "addresses": {
+      "title": "배송 주소",
+      "default": "기본 주소",
+      "add": "새 주소 추가",
+      "edit": "주소 수정",
+      "delete": "삭제"
+    },
+    "orders": {
+      "title": "주문 내역",
+      "orderNumber": "주문번호",
+      "date": "주문일",
+      "status": "상태",
+      "total": "총 금액",
+      "viewDetails": "상세보기",
+      "noOrders": "주문 내역이 없습니다.",
+      "statuses": {
+        "pending": "결제 대기",
+        "processing": "처리 중",
+        "shipped": "배송 중",
+        "delivered": "배송 완료",
+        "cancelled": "취소됨"
+      }
+    },
+    "preferences": {
+      "title": "환경설정",
+      "language": "언어",
+      "theme": "테마",
+      "notifications": "알림 설정",
+      "marketing": "마케팅 수신 동의"
+    }
+  },
+  "mySubscriptions": {
+    "title": "내 구독",
+    "active": "활성 구독",
+    "paused": "일시정지된 구독",
+    "cancelled": "취소된 구독",
+    "noSubscriptions": "구독 중인 서비스가 없습니다.",
+    "subscription": {
+      "plan": "구독 플랜",
+      "nextDelivery": "다음 배송일",
+      "frequency": "배송 주기",
+      "price": "가격",
+      "status": "상태",
+      "startDate": "시작일",
+      "pauseUntil": "일시정지 종료일"
+    },
+    "actions": {
+      "manage": "구독 관리",
+      "pause": "일시정지",
+      "resume": "재개",
+      "cancel": "취소",
+      "modify": "수정",
+      "skip": "이번 배송 건너뛰기"
+    },
+    "frequencies": {
+      "weekly": "매주",
+      "biweekly": "2주마다",
+      "monthly": "매월"
+    },
+    "statuses": {
+      "active": "활성",
+      "paused": "일시정지",
+      "cancelled": "취소됨"
+    },
+    "createNew": "새 구독 시작하기",
+    "deliveryProgress": "배송 진행률",
+    "emptyStates": {
+      "paused": "일시정지된 구독이 없습니다.",
+      "cancelled": "취소된 구독이 없습니다."
+    },
+    "stats": {
+      "totalSubscriptions": "총 구독 수",
+      "totalDeliveries": "총 배송 완료",
+      "monthlySavings": "이번 달 절약 금액"
+    },
+    "cancelled": "구독 취소됨"
   }
 }

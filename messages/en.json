@@ -191,5 +191,94 @@
   "language": {
     "korean": "한국어",
     "english": "English"
+  },
+  "myAccount": {
+    "title": "My Account",
+    "profile": {
+      "title": "Profile Information",
+      "name": "Name",
+      "email": "Email",
+      "phone": "Phone",
+      "birthday": "Birthday",
+      "edit": "Edit",
+      "save": "Save",
+      "cancel": "Cancel"
+    },
+    "addresses": {
+      "title": "Shipping Addresses",
+      "default": "Default Address",
+      "add": "Add New Address",
+      "edit": "Edit Address",
+      "delete": "Delete"
+    },
+    "orders": {
+      "title": "Order History",
+      "orderNumber": "Order Number",
+      "date": "Date",
+      "status": "Status",
+      "total": "Total",
+      "viewDetails": "View Details",
+      "noOrders": "No orders found.",
+      "statuses": {
+        "pending": "Pending",
+        "processing": "Processing",
+        "shipped": "Shipped",
+        "delivered": "Delivered",
+        "cancelled": "Cancelled"
+      }
+    },
+    "preferences": {
+      "title": "Preferences",
+      "language": "Language",
+      "theme": "Theme",
+      "notifications": "Notifications",
+      "marketing": "Marketing Communications"
+    }
+  },
+  "mySubscriptions": {
+    "title": "My Subscriptions",
+    "active": "Active Subscriptions",
+    "paused": "Paused Subscriptions",
+    "cancelled": "Cancelled Subscriptions",
+    "noSubscriptions": "You don't have any active subscriptions.",
+    "subscription": {
+      "plan": "Subscription Plan",
+      "nextDelivery": "Next Delivery",
+      "frequency": "Frequency",
+      "price": "Price",
+      "status": "Status",
+      "startDate": "Start Date",
+      "pauseUntil": "Paused Until"
+    },
+    "actions": {
+      "manage": "Manage",
+      "pause": "Pause",
+      "resume": "Resume",
+      "cancel": "Cancel",
+      "modify": "Modify",
+      "skip": "Skip Next Delivery"
+    },
+    "frequencies": {
+      "weekly": "Weekly",
+      "biweekly": "Bi-weekly",
+      "monthly": "Monthly"
+    },
+    "statuses": {
+      "active": "Active",
+      "paused": "Paused",
+      "cancelled": "Cancelled"
+    },
+    "createNew": "Start New Subscription",
+    "deliveryProgress": "Delivery Progress",
+    "emptyStates": {
+      "paused": "No paused subscriptions.",
+      "cancelled": "No cancelled subscriptions."
+    },
+    "stats": {
+      "totalSubscriptions": "Total Subscriptions",
+      "totalDeliveries": "Total Deliveries",
+      "monthlySavings": "Monthly Savings"
+    },
+    "cancelled": "Subscription Cancelled"
   }
 }
