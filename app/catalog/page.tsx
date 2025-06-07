@@ -20,6 +20,7 @@ import {
 import { useLanguage } from "@/hooks/use-language";
 import { useCart } from "@/hooks/use-cart";
 import { t } from "@/lib/translations";
+import { coffeeProducts, Coffee } from "@/data/coffee-products";
 
 interface FilterState {
   roastLevel: string[];
@@ -30,113 +31,30 @@ interface FilterState {
   body: string[];
 }
 
-// Sample product data
-const products = [
-  {
-    id: 1,
-    nameKey: "products.ethiopianYirgacheffe.name",
-    descriptionKey: "products.ethiopianYirgacheffe.description",
-    price: 16.99,
-    image: "/placeholder.svg?height=300&width=300",
-    acidity: "high",
-    body: "medium",
-    caffeine: "regular",
-    origin: "singleOrigin",
-    roastLevel: "Light",
-    featured: true,
-  },
-  {
-    id: 2,
-    nameKey: "products.colombianSupremo.name",
-    descriptionKey: "products.colombianSupremo.description",
-    price: 14.99,
-    image: "/placeholder.svg?height=300&width=300",
-    acidity: "medium",
-    body: "full",
-    caffeine: "regular",
-    origin: "singleOrigin",
-    roastLevel: "Medium",
-    featured: true,
-  },
-  {
-    id: 3,
-    nameKey: "products.decafSumatra.name",
-    descriptionKey: "products.decafSumatra.description",
-    price: 15.99,
-    image: "/placeholder.svg?height=300&width=300",
-    acidity: "low",
-    body: "full",
-    caffeine: "decaf",
-    origin: "singleOrigin",
-    roastLevel: "Dark",
-    featured: true,
-  },
-  {
-    id: 4,
-    nameKey: "products.breakfastBlend.name",
-    descriptionKey: "products.breakfastBlend.description",
-    price: 13.99,
-    image: "/placeholder.svg?height=300&width=300",
-    acidity: "medium",
-    body: "medium",
-    caffeine: "regular",
-    origin: "blend",
-    roastLevel: "Medium",
-    featured: true,
-  },
-  {
-    id: 5,
-    name: "Costa Rican Tarrazu",
-    description: "Bright acidity with honey sweetness",
-    price: 17.99,
-    image: "/placeholder.svg?height=300&width=300",
-    acidity: "high",
-    body: "medium",
-    caffeine: "regular",
-    origin: "singleOrigin",
-    roastLevel: "Medium-Light",
-    featured: false,
-  },
-  {
-    id: 6,
-    name: "Guatemalan Antigua",
-    description: "Spicy, smoky with chocolate finish",
-    price: 16.49,
-    image: "/placeholder.svg?height=300&width=300",
-    acidity: "medium",
-    body: "full",
-    caffeine: "regular",
-    origin: "singleOrigin",
-    roastLevel: "Medium-Dark",
-    featured: false,
-  },
-  {
-    id: 7,
-    name: "Kenyan AA",
-    description: "Bold, wine-like acidity with berry notes",
-    price: 18.99,
-    image: "/placeholder.svg?height=300&width=300",
-    acidity: "high",
-    body: "medium",
-    caffeine: "regular",
-    origin: "singleOrigin",
-    roastLevel: "Medium",
-    featured: false,
-  },
-  {
-    id: 8,
-    name: "Espresso Blend",
-    description: "Rich, balanced with caramel sweetness",
-    price: 15.49,
-    image: "/placeholder.svg?height=300&width=300",
-    acidity: "low",
-    body: "full",
-    caffeine: "regular",
-    origin: "blend",
-    roastLevel: "Dark",
-    featured: false,
-  },
-];
+// Extended coffee product for catalog
+interface CatalogCoffee extends Coffee {
+  roastLevel: string;
+}
+
+// Sample extended product data with roast levels
+const extendedProducts: CatalogCoffee[] = coffeeProducts.map(
+  (coffee, index) => {
+    const roastLevels = [
+      "Light",
+      "Medium",
+      "Dark",
+      "Medium",
+      "Medium-Light",
+      "Medium-Dark",
+      "Medium",
+      "Dark",
+    ];
+    return {
+      ...coffee,
+      roastLevel: roastLevels[index] || "Medium",
+    };
+  }
+);
 
 export default function CatalogPage() {
   const [filters, setFilters] = useState<FilterState>({
@@ -149,17 +67,16 @@ export default function CatalogPage() {
   });
   const [sortBy, setSortBy] = useState("featured");
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
-  const [addedProducts, setAddedProducts] = useState<Set<number>>(new Set());
+  const [addedProducts, setAddedProducts] = useState<Set<string>>(new Set());
 
   const { language } = useLanguage();
   const { addItem } = useCart();
 
-  const handleAddToCart = (product: (typeof products)[0]) => {
+  const handleAddToCart = (product: CatalogCoffee) => {
     const cartItem = {
       id: product.id,
-      nameKey: product.nameKey || "products.unknownProduct.name",
-      descriptionKey:
-        product.descriptionKey || "products.unknownProduct.description",
+      nameKey: product.nameKey,
+      descriptionKey: product.descriptionKey,
       price: product.price,
       image: product.image,
       acidity: product.acidity,
@@ -225,7 +142,7 @@ export default function CatalogPage() {
     });
   };
 
-  const filteredProducts = products
+  const filteredProducts = extendedProducts
     .filter((product) => {
       // Filter by roast level
       if (
@@ -281,23 +198,21 @@ export default function CatalogPage() {
         case "price-high":
           return b.price - a.price;
         case "name-asc":
-          return (
-            a.nameKey ? t(a.nameKey, language) : a.name || ""
-          ).localeCompare(b.nameKey ? t(b.nameKey, language) : b.name || "");
+          return t(a.nameKey, language).localeCompare(t(b.nameKey, language));
         case "name-desc":
-          return (
-            b.nameKey ? t(b.nameKey, language) : b.name || ""
-          ).localeCompare(a.nameKey ? t(a.nameKey, language) : a.name || "");
+          return t(b.nameKey, language).localeCompare(t(a.nameKey, language));
         case "featured":
         default:
-          return Number(b.featured) - Number(a.featured);
+          return Number(b.available) - Number(a.available);
       }
     });
 
   const FilterSidebar = () => (
     <div className="space-y-6">
       <div>
-        <h3 className="font-medium mb-4">Price Range</h3>
+        <h3 className="font-medium mb-4">
+          {t("catalog.priceRange", language)}
+        </h3>
         <div className="px-3">
           <Slider
             value={filters.priceRange}
@@ -315,7 +230,9 @@ export default function CatalogPage() {
       </div>
 
       <div>
-        <h3 className="font-medium mb-4">Roast Level</h3>
+        <h3 className="font-medium mb-4">
+          {t("catalog.roastLevel", language)}
+        </h3>
         <div className="space-y-2">
           {["Light", "Medium-Light", "Medium", "Medium-Dark", "Dark"].map(
             (roast) => (
@@ -335,12 +252,12 @@ export default function CatalogPage() {
       </div>
 
       <div>
-        <h3 className="font-medium mb-4">Origin</h3>
+        <h3 className="font-medium mb-4">{t("catalog.origin", language)}</h3>
         <div className="space-y-2">
           {[
             {
-              key: "singleOrigin",
-              label: t("products.singleOrigin", language),
+              key: "single",
+              label: t("products.single", language),
             },
             { key: "blend", label: t("products.blend", language) },
           ].map((origin) => (
@@ -359,7 +276,7 @@ export default function CatalogPage() {
       </div>
 
       <div>
-        <h3 className="font-medium mb-4">Caffeine</h3>
+        <h3 className="font-medium mb-4">{t("catalog.caffeine", language)}</h3>
         <div className="space-y-2">
           {[
             { key: "regular", label: t("products.regular", language) },
@@ -382,7 +299,7 @@ export default function CatalogPage() {
       </div>
 
       <div>
-        <h3 className="font-medium mb-4">{t("products.acidity", language)}</h3>
+        <h3 className="font-medium mb-4">{t("catalog.acidity", language)}</h3>
         <div className="space-y-2">
           {[
             { key: "low", label: t("products.low", language) },
@@ -404,7 +321,7 @@ export default function CatalogPage() {
       </div>
 
       <div>
-        <h3 className="font-medium mb-4">{t("products.body", language)}</h3>
+        <h3 className="font-medium mb-4">{t("catalog.body", language)}</h3>
         <div className="space-y-2">
           {[
             { key: "medium", label: t("products.medium", language) },
@@ -425,7 +342,7 @@ export default function CatalogPage() {
       </div>
 
       <Button variant="outline" onClick={resetFilters} className="w-full">
-        Reset Filters
+        {t("catalog.resetFilters", language)}
       </Button>
     </div>
   );
@@ -434,15 +351,17 @@ export default function CatalogPage() {
     <div className="container px-4 md:px-6 py-8">
       <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between mb-8">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">Coffee Catalog</h1>
+          <h1 className="text-3xl font-bold tracking-tight">
+            {t("catalog.title", language)}
+          </h1>
           <p className="text-muted-foreground">
-            Discover our selection of premium coffee beans
+            {t("catalog.description", language)}
           </p>
         </div>
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-2">
             <Label htmlFor="sort-by" className="text-sm whitespace-nowrap">
-              Sort by:
+              {t("catalog.sortBy", language)}
             </Label>
             <select
               id="sort-by"
@@ -450,23 +369,33 @@ export default function CatalogPage() {
               onChange={(e) => handleSortChange(e.target.value)}
               className="h-9 w-[180px] rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm"
             >
-              <option value="featured">Featured</option>
-              <option value="price-low">Price: Low to High</option>
-              <option value="price-high">Price: High to Low</option>
-              <option value="name-asc">Name: A to Z</option>
-              <option value="name-desc">Name: Z to A</option>
+              <option value="featured">
+                {t("catalog.sortOptions.featured", language)}
+              </option>
+              <option value="price-low">
+                {t("catalog.sortOptions.priceLow", language)}
+              </option>
+              <option value="price-high">
+                {t("catalog.sortOptions.priceHigh", language)}
+              </option>
+              <option value="name-asc">
+                {t("catalog.sortOptions.nameAsc", language)}
+              </option>
+              <option value="name-desc">
+                {t("catalog.sortOptions.nameDesc", language)}
+              </option>
             </select>
           </div>
           <Sheet open={mobileFiltersOpen} onOpenChange={setMobileFiltersOpen}>
             <SheetTrigger asChild>
               <Button variant="outline" size="sm" className="md:hidden">
                 <SlidersHorizontal className="h-4 w-4 mr-2" />
-                Filters
+                {t("catalog.filters", language)}
               </Button>
             </SheetTrigger>
             <SheetContent side="left" className="w-[300px] sm:w-[400px]">
               <SheetHeader>
-                <SheetTitle>Filters</SheetTitle>
+                <SheetTitle>{t("catalog.filters", language)}</SheetTitle>
               </SheetHeader>
               <div className="py-4">
                 <FilterSidebar />
@@ -485,12 +414,14 @@ export default function CatalogPage() {
           {filteredProducts.length === 0 ? (
             <div className="text-center py-12">
               <h3 className="text-lg font-medium mb-2">
-                No products match your filters
+                {t("catalog.noProducts", language)}
               </h3>
               <p className="text-muted-foreground mb-4">
-                Try adjusting your filter criteria
+                {t("catalog.adjustFilters", language)}
               </p>
-              <Button onClick={resetFilters}>Reset Filters</Button>
+              <Button onClick={resetFilters}>
+                {t("catalog.resetFilters", language)}
+              </Button>
             </div>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -499,11 +430,7 @@ export default function CatalogPage() {
                   <div className="relative aspect-square overflow-hidden">
                     <Image
                       src={product.image || "/placeholder.svg"}
-                      alt={
-                        product.nameKey
-                          ? t(product.nameKey, language)
-                          : product.name || ""
-                      }
+                      alt={t(product.nameKey, language)}
                       fill
                       className="object-cover transition-transform duration-300 hover:scale-105"
                     />
@@ -511,18 +438,14 @@ export default function CatalogPage() {
                   <CardContent className="p-4">
                     <div className="flex justify-between items-start mb-2">
                       <h3 className="font-semibold">
-                        {product.nameKey
-                          ? t(product.nameKey, language)
-                          : product.name}
+                        {t(product.nameKey, language)}
                       </h3>
                       <span className="font-medium text-amber-800">
                         ${product.price}
                       </span>
                     </div>
                     <p className="text-sm text-muted-foreground mb-3">
-                      {product.descriptionKey
-                        ? t(product.descriptionKey, language)
-                        : product.description}
+                      {t(product.descriptionKey, language)}
                     </p>
                     <div className="flex flex-wrap gap-1 mb-2">
                       <Badge variant="outline" className="text-xs">

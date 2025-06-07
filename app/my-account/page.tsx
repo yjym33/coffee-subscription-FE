@@ -358,7 +358,10 @@ export default function MyAccountPage() {
                     {t("myAccount.preferences.notifications", language)}
                   </Label>
                   <p className="text-sm text-muted-foreground">
-                    배송 및 주문 관련 알림을 받습니다
+                    {t(
+                      "myAccount.preferences.notificationDescription",
+                      language
+                    )}
                   </p>
                 </div>
                 <Switch id="notifications" defaultChecked />
@@ -372,7 +375,7 @@ export default function MyAccountPage() {
                     {t("myAccount.preferences.marketing", language)}
                   </Label>
                   <p className="text-sm text-muted-foreground">
-                    새로운 상품 및 할인 정보를 받습니다
+                    {t("myAccount.preferences.marketingDescription", language)}
                   </p>
                 </div>
                 <Switch id="marketing" />

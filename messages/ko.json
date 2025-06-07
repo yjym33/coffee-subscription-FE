@@ -71,6 +71,7 @@
     "regular": "일반",
     "decaf": "디카페인",
     "singleOrigin": "싱글 오리진",
+    "single": "싱글 오리진",
     "blend": "블렌드",
     "ethiopianYirgacheffe": {
       "name": "에티오피아 예가체프",
@@ -87,6 +88,22 @@
     "breakfastBlend": {
       "name": "브렉퍼스트 블렌드",
       "description": "균형 잡힌 부드러운 초콜릿 노트"
+    },
+    "costaRicanTarrazu": {
+      "name": "코스타리카 타라주",
+      "description": "벌꿀 단맛과 밝은 산미"
+    },
+    "guatemalanAntigua": {
+      "name": "과테말라 안티구아",
+      "description": "스파이시하고 스모키한 초콜릿 마무리"
+    },
+    "kenyanAA": {
+      "name": "케냐 AA",
+      "description": "와인 같은 산미와 베리 노트"
+    },
+    "espressoBlend": {
+      "name": "에스프레소 블렌드",
+      "description": "캐러멜 단맛이 있는 진하고 균형잡힌 맛"
     }
   },
   "cart": {
@@ -232,7 +249,9 @@
       "language": "언어",
       "theme": "테마",
       "notifications": "알림 설정",
-      "marketing": "마케팅 수신 동의"
+      "marketing": "마케팅 수신 동의",
+      "notificationDescription": "배송 및 주문 관련 알림을 받습니다",
+      "marketingDescription": "새로운 상품 및 할인 정보를 받습니다"
     }
   },
   "mySubscriptions": {
@@ -280,5 +299,27 @@
       "monthlySavings": "이번 달 절약 금액"
     },
     "cancelled": "구독 취소됨"
+  },
+  "catalog": {
+    "title": "커피 카탈로그",
+    "description": "프리미엄 커피 원두 컬렉션을 만나보세요",
+    "sortBy": "정렬:",
+    "filters": "필터",
+    "priceRange": "가격 범위",
+    "roastLevel": "로스팅 정도",
+    "origin": "원산지",
+    "caffeine": "카페인",
+    "acidity": "산도",
+    "body": "바디감",
+    "resetFilters": "필터 초기화",
+    "noProducts": "필터 조건에 맞는 상품이 없습니다",
+    "adjustFilters": "필터 조건을 조정해보세요",
+    "sortOptions": {
+      "featured": "추천순",
+      "priceLow": "가격: 낮은순",
+      "priceHigh": "가격: 높은순",
+      "nameAsc": "이름: 가나다순",
+      "nameDesc": "이름: 다나가순"
+    }
   }
 }

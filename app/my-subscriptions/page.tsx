@@ -20,84 +20,23 @@ import {
 } from "lucide-react";
 import { useLanguage } from "@/hooks/use-language";
 import { t } from "@/lib/translations";
-
-interface Subscription {
-  id: string;
-  planName: string;
-  coffee: {
-    nameKey: string;
-    image: string;
-  };
-  frequency: "weekly" | "biweekly" | "monthly";
-  price: number;
-  status: "active" | "paused" | "cancelled";
-  startDate: string;
-  nextDelivery?: string;
-  pauseUntil?: string;
-  deliveriesCompleted: number;
-  totalDeliveries: number;
-}
+import {
+  subscriptionPlans,
+  getActiveSubscriptions,
+  getPausedSubscriptions,
+  getCancelledSubscriptions,
+  Subscription,
+} from "@/data/subscription-data";
 
 export default function MySubscriptionsPage() {
   const { language } = useLanguage();
 
-  // Mock subscription data
-  const [subscriptions] = useState<Subscription[]>([
-    {
-      id: "SUB-001",
-      planName: "Premium Selection",
-      coffee: {
-        nameKey: "products.ethiopianYirgacheffe.name",
-        image: "/placeholder.svg?height=300&width=300",
-      },
-      frequency: "biweekly",
-      price: 24.99,
-      status: "active",
-      startDate: "2024-01-15",
-      nextDelivery: "2024-02-15",
-      deliveriesCompleted: 3,
-      totalDeliveries: 12,
-    },
-    {
-      id: "SUB-002",
-      planName: "Daily Brew",
-      coffee: {
-        nameKey: "products.colombianSupremo.name",
-        image: "/placeholder.svg?height=300&width=300",
-      },
-      frequency: "weekly",
-      price: 18.99,
-      status: "paused",
-      startDate: "2023-11-01",
-      pauseUntil: "2024-03-01",
-      deliveriesCompleted: 8,
-      totalDeliveries: 24,
-    },
-    {
-      id: "SUB-003",
-      planName: "Monthly Discovery",
-      coffee: {
-        nameKey: "products.decafSumatra.name",
-        image: "/placeholder.svg?height=300&width=300",
-      },
-      frequency: "monthly",
-      price: 32.99,
-      status: "cancelled",
-      startDate: "2023-06-01",
-      deliveriesCompleted: 6,
-      totalDeliveries: 12,
-    },
-  ]);
+  // Use centralized subscription data
+  const [subscriptions] = useState<Subscription[]>(subscriptionPlans);
 
-  const activeSubscriptions = subscriptions.filter(
-    (sub) => sub.status === "active"
-  );
-  const pausedSubscriptions = subscriptions.filter(
-    (sub) => sub.status === "paused"
-  );
-  const cancelledSubscriptions = subscriptions.filter(
-    (sub) => sub.status === "cancelled"
-  );
+  const activeSubscriptions = getActiveSubscriptions();
+  const pausedSubscriptions = getPausedSubscriptions();
+  const cancelledSubscriptions = getCancelledSubscriptions();
 
   const getStatusBadge = (status: string) => {
     const statusColors = {

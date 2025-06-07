@@ -10,65 +10,17 @@ import { ShoppingCart, Check } from "lucide-react";
 import { useLanguage } from "@/hooks/use-language";
 import { useCart } from "@/hooks/use-cart";
 import { t } from "@/lib/translations";
+import { getFeaturedCoffees, Coffee } from "@/data/coffee-products";
 
 export default function FeaturedProducts() {
-  const [hoveredProduct, setHoveredProduct] = useState<number | null>(null);
-  const [addedProducts, setAddedProducts] = useState<Set<number>>(new Set());
+  const [hoveredProduct, setHoveredProduct] = useState<string | null>(null);
+  const [addedProducts, setAddedProducts] = useState<Set<string>>(new Set());
   const { language } = useLanguage();
   const { addItem } = useCart();
 
-  const products = [
-    {
-      id: 1,
-      nameKey: "products.ethiopianYirgacheffe.name",
-      descriptionKey: "products.ethiopianYirgacheffe.description",
-      price: 16.99,
-      image: "/placeholder.svg?height=300&width=300",
-      acidity: "high",
-      body: "medium",
-      caffeine: "regular",
-      origin: "singleOrigin",
-      featured: true,
-    },
-    {
-      id: 2,
-      nameKey: "products.colombianSupremo.name",
-      descriptionKey: "products.colombianSupremo.description",
-      price: 14.99,
-      image: "/placeholder.svg?height=300&width=300",
-      acidity: "medium",
-      body: "full",
-      caffeine: "regular",
-      origin: "singleOrigin",
-      featured: true,
-    },
-    {
-      id: 3,
-      nameKey: "products.decafSumatra.name",
-      descriptionKey: "products.decafSumatra.description",
-      price: 15.99,
-      image: "/placeholder.svg?height=300&width=300",
-      acidity: "low",
-      body: "full",
-      caffeine: "decaf",
-      origin: "singleOrigin",
-      featured: true,
-    },
-    {
-      id: 4,
-      nameKey: "products.breakfastBlend.name",
-      descriptionKey: "products.breakfastBlend.description",
-      price: 13.99,
-      image: "/placeholder.svg?height=300&width=300",
-      acidity: "medium",
-      body: "medium",
-      caffeine: "regular",
-      origin: "blend",
-      featured: true,
-    },
-  ];
+  const products = getFeaturedCoffees();
 
-  const handleAddToCart = (product: (typeof products)[0]) => {
+  const handleAddToCart = (product: Coffee) => {
     addItem({
       id: product.id,
       nameKey: product.nameKey,

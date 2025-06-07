@@ -71,6 +71,7 @@
     "regular": "Regular",
     "decaf": "Decaf",
     "singleOrigin": "Single Origin",
+    "single": "Single Origin",
     "blend": "Blend",
     "ethiopianYirgacheffe": {
       "name": "Ethiopian Yirgacheffe",
@@ -87,6 +88,22 @@
     "breakfastBlend": {
       "name": "Breakfast Blend",
       "description": "Balanced, smooth with chocolate notes"
+    },
+    "costaRicanTarrazu": {
+      "name": "Costa Rican Tarrazu",
+      "description": "Bright acidity with honey sweetness"
+    },
+    "guatemalanAntigua": {
+      "name": "Guatemalan Antigua",
+      "description": "Spicy, smoky with chocolate finish"
+    },
+    "kenyanAA": {
+      "name": "Kenyan AA",
+      "description": "Bold, wine-like acidity with berry notes"
+    },
+    "espressoBlend": {
+      "name": "Espresso Blend",
+      "description": "Rich, balanced with caramel sweetness"
     }
   },
   "cart": {
@@ -232,7 +249,9 @@
       "language": "Language",
       "theme": "Theme",
       "notifications": "Notifications",
-      "marketing": "Marketing Communications"
+      "marketing": "Marketing Communications",
+      "notificationDescription": "Receive notifications about shipping and orders",
+      "marketingDescription": "Receive information about new products and discounts"
     }
   },
   "mySubscriptions": {
@@ -280,5 +299,27 @@
       "monthlySavings": "Monthly Savings"
     },
     "cancelled": "Subscription Cancelled"
+  },
+  "catalog": {
+    "title": "Coffee Catalog",
+    "description": "Discover our selection of premium coffee beans",
+    "sortBy": "Sort by:",
+    "filters": "Filters",
+    "priceRange": "Price Range",
+    "roastLevel": "Roast Level",
+    "origin": "Origin",
+    "caffeine": "Caffeine",
+    "acidity": "Acidity",
+    "body": "Body",
+    "resetFilters": "Reset Filters",
+    "noProducts": "No products match your filters",
+    "adjustFilters": "Try adjusting your filter criteria",
+    "sortOptions": {
+      "featured": "Featured",
+      "priceLow": "Price: Low to High",
+      "priceHigh": "Price: High to Low",
+      "nameAsc": "Name: A to Z",
+      "nameDesc": "Name: Z to A"
+    }
   }
 }
