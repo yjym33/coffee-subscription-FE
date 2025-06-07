@@ -321,5 +321,27 @@
       "nameAsc": "Name: A to Z",
       "nameDesc": "Name: Z to A"
     }
+  },
+  "product": {
+    "notFound": "Product not found",
+    "backToCatalog": "Back to Catalog",
+    "reviews": "reviews",
+    "characteristics": "Characteristics",
+    "caffeine": "Caffeine",
+    "origin": "Origin",
+    "quantity": "Quantity",
+    "addToCart": "Add to Cart",
+    "brewingGuide": "Brewing Guide",
+    "relatedProducts": "Related Products",
+    "brewing": {
+      "grind": "Grind Beans",
+      "grindDesc": "Grind to medium consistency for optimal extraction",
+      "water": "Water Temperature",
+      "waterDesc": "Use hot water between 90-96°C",
+      "time": "Brewing Time",
+      "timeDesc": "Brew slowly for 4-6 minutes",
+      "enjoy": "Enjoy",
+      "enjoyDesc": "Enjoy your freshly brewed coffee"
+    }
   }
 }
