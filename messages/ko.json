@@ -155,9 +155,54 @@
   "about": {
     "title": "커피 구독 정보",
     "subtitle": "당신의 완벽한 커피/티 경험을 찾아드립니다.",
+    "badge": "프리미엄 커피 구독 서비스",
+    "hero": {
+      "title": "당신만의 완벽한 커피 여정을 시작하세요",
+      "description": "AI 기반 개인화 추천으로 당신의 취향에 맞는 최고의 커피를 매달 정기적으로 만나보세요."
+    },
+    "stats": {
+      "customers": "만족한 고객",
+      "coffeeTypes": "종류의 커피",
+      "countries": "개국 원산지",
+      "rating": "평점"
+    },
     "mission": {
       "title": "우리의 미션",
       "description": "저희는 사용자의 섬세한 취향과 라이프스타일에 맞춰 최적의 커피와 티를 추천하고, 정기 구독을 통해 편리하게 즐기실 수 있도록 돕는 것을 목표로 합니다. 단순한 상품 판매를 넘어, 각자의 일상에 특별한 향미와 휴식을 더하는 경험을 제공하고자 합니다."
+    },
+    "values": {
+      "title": "우리의 핵심 가치",
+      "subtitle": "Bean Bliss가 고객에게 제공하는 특별한 가치들입니다.",
+      "personalization": {
+        "title": "개인화 추천",
+        "description": "AI 알고리즘으로 당신의 취향을 분석하여 완벽한 커피를 추천합니다."
+      },
+      "quality": {
+        "title": "최고의 품질",
+        "description": "엄선된 원두만을 사용하여 최상의 맛과 향을 보장합니다."
+      },
+      "convenience": {
+        "title": "편리한 구독",
+        "description": "간편한 설정과 자동 배송으로 번거로움 없는 서비스를 제공합니다."
+      },
+      "sustainability": {
+        "title": "지속가능성",
+        "description": "환경을 생각하는 윤리적 소싱과 친환경 포장재를 사용합니다."
+      }
+    },
+    "features": {
+      "title": "특별한 서비스 특징",
+      "subtitle": "Bean Bliss만의 차별화된 서비스를 경험해보세요.",
+      "aiRecommendation": "AI 기반 개인화 추천 시스템",
+      "freshRoasting": "주문 즉시 신선 로스팅",
+      "flexibleSubscription": "유연한 구독 관리 (일시정지, 변경, 취소)",
+      "expertCuration": "커피 전문가의 엄선된 큐레이션",
+      "sustainableSourcing": "지속가능한 원산지 직접 소싱",
+      "customerSupport": "24/7 고객 지원 서비스"
+    },
+    "promise": {
+      "title": "우리의 약속",
+      "description": "매일 마시는 커피가 단순한 습관을 넘어, 당신의 하루를 더욱 풍요롭게 만드는 특별한 순간이 될 수 있도록 최선을 다하겠습니다. 지능형 추천 시스템과 함께 당신만의 완벽한 한 잔을 찾아보세요."
     }
   },
   "footer": {

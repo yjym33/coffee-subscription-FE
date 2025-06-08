@@ -73,8 +73,8 @@ export default function Header() {
             </SheetContent>
           </Sheet>
           <Link href="/" className="flex items-center gap-2">
-            <Coffee className="h-6 w-6 text-amber-800" />
-            <span className="font-bold text-xl hidden sm:inline-block">
+            <Coffee className="h-6 w-6 text-amber-700 dark:text-amber-300" />
+            <span className="font-bold text-xl hidden sm:inline-block text-foreground">
               Bean Bliss
             </span>
           </Link>
@@ -104,7 +104,7 @@ export default function Header() {
               {cartItemsCount > 0 && (
                 <Badge
                   variant="destructive"
-                  className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 text-xs bg-amber-800 hover:bg-amber-800"
+                  className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 text-xs bg-amber-700 dark:bg-amber-600 hover:bg-amber-800 dark:hover:bg-amber-700 text-white"
                 >
                   {cartItemsCount > 99 ? "99+" : cartItemsCount}
                 </Badge>

@@ -155,9 +155,54 @@
   "about": {
     "title": "About Coffee Subscription",
     "subtitle": "Finding your perfect coffee/tea experience.",
+    "badge": "Premium Coffee Subscription Service",
+    "hero": {
+      "title": "Start Your Perfect Coffee Journey",
+      "description": "Discover the finest coffee tailored to your taste with our AI-powered personalization and monthly subscription service."
+    },
+    "stats": {
+      "customers": "Happy Customers",
+      "coffeeTypes": "Coffee Varieties",
+      "countries": "Origin Countries",
+      "rating": "Rating"
+    },
     "mission": {
       "title": "Our Mission",
       "description": "We aim to recommend the best coffee and tea tailored to your delicate tastes and lifestyle, helping you enjoy them conveniently through regular subscriptions. Beyond simple product sales, we want to provide an experience that adds special flavors and relaxation to your daily life."
+    },
+    "values": {
+      "title": "Our Core Values",
+      "subtitle": "The special values that Bean Bliss delivers to our customers.",
+      "personalization": {
+        "title": "Personalized Recommendations",
+        "description": "AI algorithms analyze your preferences to recommend the perfect coffee for you."
+      },
+      "quality": {
+        "title": "Premium Quality",
+        "description": "We use only carefully selected beans to ensure the finest taste and aroma."
+      },
+      "convenience": {
+        "title": "Convenient Subscription",
+        "description": "Easy setup and automatic delivery provide a hassle-free service experience."
+      },
+      "sustainability": {
+        "title": "Sustainability",
+        "description": "We use ethical sourcing and eco-friendly packaging materials for the environment."
+      }
+    },
+    "features": {
+      "title": "Unique Service Features",
+      "subtitle": "Experience Bean Bliss's differentiated services.",
+      "aiRecommendation": "AI-powered personalized recommendation system",
+      "freshRoasting": "Fresh roasting upon order",
+      "flexibleSubscription": "Flexible subscription management (pause, modify, cancel)",
+      "expertCuration": "Expert-curated coffee selection",
+      "sustainableSourcing": "Direct sustainable sourcing from origins",
+      "customerSupport": "24/7 customer support service"
+    },
+    "promise": {
+      "title": "Our Promise",
+      "description": "We are committed to making your daily coffee more than just a habit, but a special moment that enriches your day. Find your perfect cup with our intelligent recommendation system."
     }
   },
   "footer": {
