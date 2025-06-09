@@ -36,7 +36,7 @@ export const subscriptionPlans: Subscription[] = [
     planName: "Daily Brew",
     coffee: {
       nameKey: "products.colombianSupremo.name",
-      image: "/placeholder.svg?height=300&width=300",
+      image: "/images/coffee/colombian-supremo.jpg",
     },
     frequency: "weekly",
     price: 18.99,
@@ -51,7 +51,7 @@ export const subscriptionPlans: Subscription[] = [
     planName: "Monthly Discovery",
     coffee: {
       nameKey: "products.decafSumatra.name",
-      image: "/placeholder.svg?height=300&width=300",
+      image: "/images/coffee/decaf-sumatra.jpg",
     },
     frequency: "monthly",
     price: 32.99,

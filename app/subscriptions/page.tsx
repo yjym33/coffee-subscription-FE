@@ -41,7 +41,7 @@ const subscriptions = [
     product: {
       id: 1,
       name: "Ethiopian Yirgacheffe",
-      image: "/placeholder.svg?height=300&width=300",
+      image: "/images/coffee/ethiopian-yirgacheffe.jpg",
       description: "Bright, floral notes with citrus acidity",
     },
     frequency: "2 weeks",
@@ -56,7 +56,7 @@ const subscriptions = [
     product: {
       id: 3,
       name: "Decaf Sumatra",
-      image: "/placeholder.svg?height=300&width=300",
+      image: "/images/coffee/decaf-sumatra.jpg",
       description: "Earthy, herbal with low acidity",
     },
     frequency: "4 weeks",
