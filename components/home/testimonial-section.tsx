@@ -16,7 +16,7 @@ export default function TestimonialSection() {
       role: t("testimonials.customers.customer1.role", language),
       content: t("testimonials.customers.customer1.content", language),
       rating: 5,
-      avatar: "/placeholder.svg?height=100&width=100",
+      avatar: "/images/avatar/blue-circle-user.jpg",
     },
     {
       id: 2,
@@ -24,7 +24,7 @@ export default function TestimonialSection() {
       role: t("testimonials.customers.customer2.role", language),
       content: t("testimonials.customers.customer2.content", language),
       rating: 5,
-      avatar: "/placeholder.svg?height=100&width=100",
+      avatar: "/images/avatar/woman-person.jpg",
     },
     {
       id: 3,
@@ -32,7 +32,7 @@ export default function TestimonialSection() {
       role: t("testimonials.customers.customer3.role", language),
       content: t("testimonials.customers.customer3.content", language),
       rating: 4,
-      avatar: "/placeholder.svg?height=100&width=100",
+      avatar: "/images/avatar/business-man-person.jpg",
     },
   ];
 

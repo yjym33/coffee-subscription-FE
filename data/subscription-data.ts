@@ -21,7 +21,7 @@ export const subscriptionPlans: Subscription[] = [
     planName: "Premium Selection",
     coffee: {
       nameKey: "products.ethiopianYirgacheffe.name",
-      image: "/placeholder.svg?height=300&width=300",
+      image: "/images/coffee/ethiopian-yirgacheffe.jpg",
     },
     frequency: "biweekly",
     price: 24.99,

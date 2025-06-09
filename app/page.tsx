@@ -26,7 +26,7 @@ export default function Home() {
                 <Badge className="bg-amber-100 text-amber-800 hover:bg-amber-100 border-none">
                   {t("hero.badge", language)}
                 </Badge>
-                <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none">
+                <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none text-black">
                   {t("hero.title", language)}
                 </h1>
                 <p className="max-w-[600px] text-gray-500 md:text-xl">
@@ -52,7 +52,7 @@ export default function Home() {
             </div>
             <div className="relative h-[400px] lg:h-[500px] overflow-hidden rounded-xl">
               <Image
-                src="/placeholder.svg?height=500&width=500"
+                src="/images/coffee/hero-image.jpg"
                 alt="Coffee beans and brewing equipment"
                 fill
                 className="object-cover"

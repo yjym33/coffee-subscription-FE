@@ -84,7 +84,7 @@ export default function AboutUsPage() {
             <div className="relative">
               <div className="relative aspect-square max-w-md mx-auto">
                 <Image
-                  src="/placeholder.svg?height=400&width=400"
+                  src="/images/coffee/about-image.jpg"
                   alt="Coffee beans and brewing"
                   fill
                   className="object-cover rounded-2xl shadow-2xl border border-border"
@@ -201,7 +201,7 @@ export default function AboutUsPage() {
                 <div className="space-y-4">
                   <div className="relative aspect-square rounded-xl overflow-hidden border border-border">
                     <Image
-                      src="/placeholder.svg?height=200&width=200"
+                      src="/images/coffee/coffee-roasting.png"
                       alt="Coffee roasting"
                       fill
                       className="object-cover"
@@ -209,7 +209,7 @@ export default function AboutUsPage() {
                   </div>
                   <div className="relative aspect-[4/3] rounded-xl overflow-hidden border border-border">
                     <Image
-                      src="/placeholder.svg?height=150&width=200"
+                      src="/images/coffee/coffee-packaging.png"
                       alt="Coffee packaging"
                       fill
                       className="object-cover"
@@ -219,15 +219,15 @@ export default function AboutUsPage() {
                 <div className="space-y-4 mt-8">
                   <div className="relative aspect-[4/3] rounded-xl overflow-hidden border border-border">
                     <Image
-                      src="/placeholder.svg?height=150&width=200"
+                      src="/images/coffee/coffee-tasting.png"
                       alt="Coffee tasting"
                       fill
                       className="object-cover"
                     />
                   </div>
-                  <div className="relative aspect-square rounded-xl overflow-hidden border border-border">
+                  <div className="relative aspect-square rounded-xSl overflow-hidden border border-border">
                     <Image
-                      src="/placeholder.svg?height=200&width=200"
+                      src="/images/coffee/coffee-delivery.png"
                       alt="Coffee delivery"
                       fill
                       className="object-cover"
