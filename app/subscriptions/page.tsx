@@ -32,17 +32,49 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
+import { useLanguage } from "@/hooks/use-language";
+import { t } from "@/lib/translations";
+
+type Subscription = {
+  id: number;
+  status: "active" | "paused";
+  product: {
+    id: number;
+    nameKey: string;
+    image: string;
+  };
+  frequency: string;
+  nextDelivery: string | null;
+  lastDelivery: string;
+  quantity: number;
+  price: number;
+  pausedReason?: string;
+};
+
+type OrderItem = {
+  id: number;
+  nameKey: string;
+  quantity: number;
+  price: number;
+};
+
+type Order = {
+  id: string;
+  date: string;
+  status: string;
+  items: OrderItem[];
+  total: number;
+};
 
 // Sample subscription data
-const subscriptions = [
+const subscriptions: Subscription[] = [
   {
     id: 1,
     status: "active",
     product: {
       id: 1,
-      name: "Ethiopian Yirgacheffe",
+      nameKey: "ethiopianYirgacheffe",
       image: "/images/coffee/ethiopian-yirgacheffe.jpg",
-      description: "Bright, floral notes with citrus acidity",
     },
     frequency: "2 weeks",
     nextDelivery: "2025-05-28",
@@ -55,9 +87,8 @@ const subscriptions = [
     status: "paused",
     product: {
       id: 3,
-      name: "Decaf Sumatra",
+      nameKey: "decafSumatra",
       image: "/images/coffee/decaf-sumatra.jpg",
-      description: "Earthy, herbal with low acidity",
     },
     frequency: "4 weeks",
     nextDelivery: null,
@@ -69,7 +100,7 @@ const subscriptions = [
 ];
 
 // Sample order history
-const orderHistory = [
+const orderHistory: Order[] = [
   {
     id: "ORD-1234",
     date: "2025-05-14",
@@ -77,7 +108,7 @@ const orderHistory = [
     items: [
       {
         id: 1,
-        name: "Ethiopian Yirgacheffe",
+        nameKey: "ethiopianYirgacheffe",
         quantity: 1,
         price: 16.99,
       },
@@ -91,7 +122,7 @@ const orderHistory = [
     items: [
       {
         id: 3,
-        name: "Decaf Sumatra",
+        nameKey: "decafSumatra",
         quantity: 2,
         price: 31.98,
       },
@@ -105,7 +136,7 @@ const orderHistory = [
     items: [
       {
         id: 1,
-        name: "Ethiopian Yirgacheffe",
+        nameKey: "ethiopianYirgacheffe",
         quantity: 1,
         price: 16.99,
       },
@@ -115,14 +146,16 @@ const orderHistory = [
 ];
 
 export default function MySubscriptionsPage() {
-  const [activeSubscriptions, setActiveSubscriptions] = useState(subscriptions);
-  const [editingSubscription, setEditingSubscription] = useState(null);
+  const [activeSubscriptions, setActiveSubscriptions] =
+    useState<Subscription[]>(subscriptions);
+  const [editingSubscription, setEditingSubscription] =
+    useState<Subscription | null>(null);
   const [editDialogOpen, setEditDialogOpen] = useState(false);
   const [pauseDialogOpen, setPauseDialogOpen] = useState(false);
   const [resumeDialogOpen, setResumeDialogOpen] = useState(false);
   const [cancelDialogOpen, setCancelDialogOpen] = useState(false);
-
-  const handlePauseSubscription = (id) => {
+  const { language } = useLanguage();
+  const handlePauseSubscription = (id: number) => {
     setActiveSubscriptions((prev) =>
       prev.map((sub) =>
         sub.id === id
@@ -138,7 +171,7 @@ export default function MySubscriptionsPage() {
     setPauseDialogOpen(false);
   };
 
-  const handleResumeSubscription = (id) => {
+  const handleResumeSubscription = (id: number) => {
     setActiveSubscriptions((prev) =>
       prev.map((sub) =>
         sub.id === id
@@ -146,7 +179,7 @@ export default function MySubscriptionsPage() {
               ...sub,
               status: "active",
               nextDelivery: "2025-06-11",
-              pausedReason: null,
+              pausedReason: undefined,
             }
           : sub
       )
@@ -154,7 +187,7 @@ export default function MySubscriptionsPage() {
     setResumeDialogOpen(false);
   };
 
-  const handleCancelSubscription = (id) => {
+  const handleCancelSubscription = (id: number) => {
     setActiveSubscriptions((prev) => prev.filter((sub) => sub.id !== id));
     setCancelDialogOpen(false);
   };
@@ -167,29 +200,37 @@ export default function MySubscriptionsPage() {
   return (
     <div className="container px-4 md:px-6 py-8">
       <div className="flex flex-col gap-2 mb-8">
-        <h1 className="text-3xl font-bold tracking-tight">My Subscriptions</h1>
+        <h1 className="text-3xl font-bold tracking-tight">
+          {t("subscriptions.mySubscriptions", language)}
+        </h1>
         <p className="text-muted-foreground">
-          Manage your coffee subscriptions and view your order history
+          {t("subscriptions.manageSubscriptions", language)}
         </p>
       </div>
 
       <Tabs defaultValue="subscriptions" className="space-y-8">
         <TabsList>
-          <TabsTrigger value="subscriptions">Active Subscriptions</TabsTrigger>
-          <TabsTrigger value="history">Order History</TabsTrigger>
+          <TabsTrigger value="subscriptions">
+            {t("subscriptions.activeSubscriptions", language)}
+          </TabsTrigger>
+          <TabsTrigger value="history">
+            {t("subscriptions.orderHistory", language)}
+          </TabsTrigger>
         </TabsList>
 
         <TabsContent value="subscriptions" className="space-y-6">
           {activeSubscriptions.length === 0 ? (
             <div className="text-center py-12 border rounded-lg">
               <h3 className="text-lg font-medium mb-2">
-                No active subscriptions
+                {t("subscriptions.noActiveSubscriptions", language)}
               </h3>
               <p className="text-muted-foreground mb-4">
-                You don&apos;t have any active coffee subscriptions
+                {t("subscriptions.noActiveSubscriptionsDescription", language)}
               </p>
               <Button asChild className="bg-amber-800 hover:bg-amber-900">
-                <Link href="/subscriptions">Browse Subscription Plans</Link>
+                <Link href="/subscriptions">
+                  {t("subscriptions.browseSubscriptionPlans", language)}
+                </Link>
               </Button>
             </div>
           ) : (
@@ -201,7 +242,10 @@ export default function MySubscriptionsPage() {
                       <div className="relative aspect-square max-w-[200px] overflow-hidden rounded-md">
                         <Image
                           src={subscription.product.image || "/placeholder.svg"}
-                          alt={subscription.product.name}
+                          alt={t(
+                            `products.${subscription.product.nameKey}.name`,
+                            language
+                          )}
                           fill
                           className="object-cover"
                         />
@@ -210,10 +254,16 @@ export default function MySubscriptionsPage() {
                         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                           <div>
                             <h3 className="text-xl font-semibold">
-                              {subscription.product.name}
+                              {t(
+                                `products.${subscription.product.nameKey}.name`,
+                                language
+                              )}
                             </h3>
                             <p className="text-muted-foreground">
-                              {subscription.product.description}
+                              {t(
+                                `products.${subscription.product.nameKey}.description`,
+                                language
+                              )}
                             </p>
                           </div>
                           <Badge
@@ -229,8 +279,8 @@ export default function MySubscriptionsPage() {
                             }
                           >
                             {subscription.status === "active"
-                              ? "Active"
-                              : "Paused"}
+                              ? t("subscriptions.active", language)
+                              : t("subscriptions.paused", language)}
                           </Badge>
                         </div>
 
@@ -241,7 +291,8 @@ export default function MySubscriptionsPage() {
                             </p>
                             <p className="font-medium flex items-center gap-1">
                               <Clock className="h-4 w-4" />
-                              Every {subscription.frequency}
+                              {t("subscriptions.every", language)}{" "}
+                              {subscription.frequency}
                             </p>
                           </div>
                           <div>
@@ -250,7 +301,9 @@ export default function MySubscriptionsPage() {
                             </p>
                             <p className="font-medium">
                               {subscription.quantity}{" "}
-                              {subscription.quantity > 1 ? "bags" : "bag"}
+                              {subscription.quantity > 1
+                                ? t("subscriptions.bags", language)
+                                : t("subscriptions.bag", language)}
                             </p>
                           </div>
                           <div>
@@ -258,22 +311,23 @@ export default function MySubscriptionsPage() {
                               Price
                             </p>
                             <p className="font-medium">
-                              $
+                              {t("subscriptions.price", language)}{" "}
                               {(
                                 subscription.price * subscription.quantity
                               ).toFixed(2)}{" "}
-                              per delivery
+                              {t("subscriptions.perDelivery", language)}
                             </p>
                           </div>
                           <div>
                             <p className="text-sm text-muted-foreground">
                               {subscription.status === "active"
-                                ? "Next Delivery"
-                                : "Last Delivery"}
+                                ? t("subscriptions.nextDelivery", language)
+                                : t("subscriptions.lastDelivery", language)}
                             </p>
                             <p className="font-medium flex items-center gap-1">
                               <Calendar className="h-4 w-4" />
-                              {subscription.status === "active"
+                              {subscription.status === "active" &&
+                              subscription.nextDelivery
                                 ? new Date(
                                     subscription.nextDelivery
                                   ).toLocaleDateString()
@@ -287,7 +341,9 @@ export default function MySubscriptionsPage() {
                         {subscription.status === "paused" && (
                           <div className="bg-muted p-3 rounded-md">
                             <p className="text-sm">
-                              <span className="font-medium">Paused:</span>{" "}
+                              <span className="font-medium">
+                                {t("subscriptions.paused", language)}:
+                              </span>{" "}
                               {subscription.pausedReason}
                             </p>
                           </div>
@@ -306,20 +362,32 @@ export default function MySubscriptionsPage() {
                                   setEditingSubscription(subscription)
                                 }
                               >
-                                <Edit className="h-4 w-4 mr-2" /> Edit
+                                <Edit className="h-4 w-4 mr-2" />{" "}
+                                {t("subscriptions.edit", language)}
                               </Button>
                             </DialogTrigger>
                             <DialogContent>
                               <DialogHeader>
-                                <DialogTitle>Edit Subscription</DialogTitle>
+                                <DialogTitle>
+                                  {t(
+                                    "subscriptions.editSubscription",
+                                    language
+                                  )}
+                                </DialogTitle>
                                 <DialogDescription>
-                                  Make changes to your subscription preferences
+                                  {t(
+                                    "subscriptions.makeChangesToYourSubscriptionPreferences",
+                                    language
+                                  )}
                                 </DialogDescription>
                               </DialogHeader>
                               <div className="grid gap-4 py-4">
                                 <div className="grid gap-2">
                                   <Label htmlFor="frequency">
-                                    Delivery Frequency
+                                    {t(
+                                      "subscriptions.deliveryFrequency",
+                                      language
+                                    )}
                                   </Label>
                                   <Select
                                     defaultValue={
@@ -331,19 +399,24 @@ export default function MySubscriptionsPage() {
                                     </SelectTrigger>
                                     <SelectContent>
                                       <SelectItem value="1 week">
-                                        Weekly
+                                        {t("subscriptions.weekly", language)}
                                       </SelectItem>
                                       <SelectItem value="2 weeks">
-                                        Every 2 Weeks
+                                        {t(
+                                          "subscriptions.every2Weeks",
+                                          language
+                                        )}
                                       </SelectItem>
                                       <SelectItem value="4 weeks">
-                                        Monthly
+                                        {t("subscriptions.monthly", language)}
                                       </SelectItem>
                                     </SelectContent>
                                   </Select>
                                 </div>
                                 <div className="grid gap-2">
-                                  <Label htmlFor="quantity">Quantity</Label>
+                                  <Label htmlFor="quantity">
+                                    {t("subscriptions.quantity", language)}
+                                  </Label>
                                   <Select
                                     defaultValue={editingSubscription?.quantity.toString()}
                                   >
@@ -351,9 +424,15 @@ export default function MySubscriptionsPage() {
                                       <SelectValue placeholder="Select quantity" />
                                     </SelectTrigger>
                                     <SelectContent>
-                                      <SelectItem value="1">1 Bag</SelectItem>
-                                      <SelectItem value="2">2 Bags</SelectItem>
-                                      <SelectItem value="3">3 Bags</SelectItem>
+                                      <SelectItem value="1">
+                                        {t("subscriptions.oneBag", language)}
+                                      </SelectItem>
+                                      <SelectItem value="2">
+                                        {t("subscriptions.twoBags", language)}
+                                      </SelectItem>
+                                      <SelectItem value="3">
+                                        {t("subscriptions.threeBags", language)}
+                                      </SelectItem>
                                     </SelectContent>
                                   </Select>
                                 </div>
@@ -363,10 +442,10 @@ export default function MySubscriptionsPage() {
                                   variant="outline"
                                   onClick={() => setEditDialogOpen(false)}
                                 >
-                                  Cancel
+                                  {t("subscriptions.cancel", language)}
                                 </Button>
                                 <Button onClick={handleEditSubscription}>
-                                  Save Changes
+                                  {t("subscriptions.saveChanges", language)}
                                 </Button>
                               </DialogFooter>
                             </DialogContent>
@@ -379,20 +458,29 @@ export default function MySubscriptionsPage() {
                             >
                               <DialogTrigger asChild>
                                 <Button variant="outline" size="sm">
-                                  <Pause className="h-4 w-4 mr-2" /> Pause
+                                  <Pause className="h-4 w-4 mr-2" />{" "}
+                                  {t("subscriptions.pause", language)}
                                 </Button>
                               </DialogTrigger>
                               <DialogContent>
                                 <DialogHeader>
-                                  <DialogTitle>Pause Subscription</DialogTitle>
+                                  <DialogTitle>
+                                    {t(
+                                      "subscriptions.pauseSubscription",
+                                      language
+                                    )}
+                                  </DialogTitle>
                                   <DialogDescription>
-                                    You can resume your subscription at any time
+                                    {t(
+                                      "subscriptions.youCanResumeYourSubscriptionAtAnyTime",
+                                      language
+                                    )}
                                   </DialogDescription>
                                 </DialogHeader>
                                 <div className="grid gap-4 py-4">
                                   <div className="grid gap-2">
                                     <Label htmlFor="pause-reason">
-                                      Reason (optional)
+                                      {t("subscriptions.reason", language)}
                                     </Label>
                                     <Select defaultValue="vacation">
                                       <SelectTrigger id="pause-reason">
@@ -400,16 +488,28 @@ export default function MySubscriptionsPage() {
                                       </SelectTrigger>
                                       <SelectContent>
                                         <SelectItem value="vacation">
-                                          Going on vacation
+                                          {t(
+                                            "subscriptions.goingOnVacation",
+                                            language
+                                          )}
                                         </SelectItem>
                                         <SelectItem value="too-much">
-                                          Have too much coffee
+                                          {t(
+                                            "subscriptions.haveTooMuchCoffee",
+                                            language
+                                          )}
                                         </SelectItem>
                                         <SelectItem value="trying-others">
-                                          Trying other coffees
+                                          {t(
+                                            "subscriptions.tryingOtherCoffees",
+                                            language
+                                          )}
                                         </SelectItem>
                                         <SelectItem value="other">
-                                          Other reason
+                                          {t(
+                                            "subscriptions.otherReason",
+                                            language
+                                          )}
                                         </SelectItem>
                                       </SelectContent>
                                     </Select>
@@ -420,7 +520,7 @@ export default function MySubscriptionsPage() {
                                     variant="outline"
                                     onClick={() => setPauseDialogOpen(false)}
                                   >
-                                    Cancel
+                                    {t("subscriptions.cancel", language)}
                                   </Button>
                                   <Button
                                     variant="default"
@@ -428,7 +528,10 @@ export default function MySubscriptionsPage() {
                                       handlePauseSubscription(subscription.id)
                                     }
                                   >
-                                    Pause Subscription
+                                    {t(
+                                      "subscriptions.pauseSubscription",
+                                      language
+                                    )}
                                   </Button>
                                 </DialogFooter>
                               </DialogContent>
@@ -440,21 +543,35 @@ export default function MySubscriptionsPage() {
                             >
                               <DialogTrigger asChild>
                                 <Button variant="outline" size="sm">
-                                  <Play className="h-4 w-4 mr-2" /> Resume
+                                  <Play className="h-4 w-4 mr-2" />{" "}
+                                  {t("subscriptions.resume", language)}
                                 </Button>
                               </DialogTrigger>
                               <DialogContent>
                                 <DialogHeader>
-                                  <DialogTitle>Resume Subscription</DialogTitle>
+                                  <DialogTitle>
+                                    {t(
+                                      "subscriptions.resumeSubscription",
+                                      language
+                                    )}
+                                  </DialogTitle>
                                   <DialogDescription>
-                                    Your subscription will be reactivated
+                                    {t(
+                                      "subscriptions.yourSubscriptionWillBeReactivated",
+                                      language
+                                    )}
                                   </DialogDescription>
                                 </DialogHeader>
                                 <div className="py-4">
                                   <p>
-                                    Your next delivery will be scheduled for{" "}
+                                    {t(
+                                      "subscriptions.yourNextDeliveryWillBeScheduledFor",
+                                      language
+                                    )}{" "}
                                     <span className="font-medium">
-                                      June 11, 2025
+                                      {new Date(
+                                        subscription.nextDelivery || ""
+                                      ).toLocaleDateString()}
                                     </span>
                                     .
                                   </p>
@@ -464,7 +581,7 @@ export default function MySubscriptionsPage() {
                                     variant="outline"
                                     onClick={() => setResumeDialogOpen(false)}
                                   >
-                                    Cancel
+                                    {t("subscriptions.cancel", language)}
                                   </Button>
                                   <Button
                                     variant="default"
@@ -472,7 +589,10 @@ export default function MySubscriptionsPage() {
                                       handleResumeSubscription(subscription.id)
                                     }
                                   >
-                                    Resume Subscription
+                                    {t(
+                                      "subscriptions.resumeSubscription",
+                                      language
+                                    )}
                                   </Button>
                                 </DialogFooter>
                               </DialogContent>
@@ -485,28 +605,46 @@ export default function MySubscriptionsPage() {
                           >
                             <DialogTrigger asChild>
                               <Button variant="outline" size="sm">
-                                Cancel Subscription
+                                {t(
+                                  "subscriptions.cancelSubscription",
+                                  language
+                                )}
                               </Button>
                             </DialogTrigger>
                             <DialogContent>
                               <DialogHeader>
-                                <DialogTitle>Cancel Subscription</DialogTitle>
+                                <DialogTitle>
+                                  {t(
+                                    "subscriptions.cancelSubscription",
+                                    language
+                                  )}
+                                </DialogTitle>
                                 <DialogDescription>
-                                  Are you sure you want to cancel your
-                                  subscription?
+                                  {t(
+                                    "subscriptions.areYouSureYouWantToCancelYourSubscription",
+                                    language
+                                  )}
                                 </DialogDescription>
                               </DialogHeader>
                               <div className="py-4">
                                 <p className="mb-2">
-                                  This will permanently cancel your subscription
-                                  to{" "}
+                                  {t(
+                                    "subscriptions.thisWillPermanentlyCancelYourSubscriptionTo",
+                                    language
+                                  )}{" "}
                                   <span className="font-medium">
-                                    {subscription.product.name}
+                                    {t(
+                                      `products.${subscription.product.nameKey}.name`,
+                                      language
+                                    )}
                                   </span>
                                   .
                                 </p>
                                 <p>
-                                  You can always start a new subscription later.
+                                  {t(
+                                    "subscriptions.youCanAlwaysStartANewSubscriptionLater",
+                                    language
+                                  )}
                                 </p>
                               </div>
                               <DialogFooter>
@@ -514,7 +652,10 @@ export default function MySubscriptionsPage() {
                                   variant="outline"
                                   onClick={() => setCancelDialogOpen(false)}
                                 >
-                                  Keep Subscription
+                                  {t(
+                                    "subscriptions.keepSubscription",
+                                    language
+                                  )}
                                 </Button>
                                 <Button
                                   variant="destructive"
@@ -522,7 +663,10 @@ export default function MySubscriptionsPage() {
                                     handleCancelSubscription(subscription.id)
                                   }
                                 >
-                                  Cancel Subscription
+                                  {t(
+                                    "subscriptions.cancelSubscription",
+                                    language
+                                  )}
                                 </Button>
                               </DialogFooter>
                             </DialogContent>
@@ -538,7 +682,9 @@ export default function MySubscriptionsPage() {
 
           <div className="flex justify-center mt-4">
             <Button asChild variant="outline">
-              <Link href="/subscriptions">Add New Subscription</Link>
+              <Link href="/subscriptions">
+                {t("subscriptions.addNewSubscription", language)}
+              </Link>
             </Button>
           </div>
         </TabsContent>
@@ -546,15 +692,15 @@ export default function MySubscriptionsPage() {
         <TabsContent value="history" className="space-y-6">
           <Card>
             <CardHeader>
-              <CardTitle>Order History</CardTitle>
+              <CardTitle>{t("subscriptions.orderHistory", language)}</CardTitle>
               <CardDescription>
-                View your past coffee deliveries
+                {t("subscriptions.viewYourPastCoffeeDeliveries", language)}
               </CardDescription>
             </CardHeader>
             <CardContent>
               {orderHistory.length === 0 ? (
                 <div className="text-center py-6">
-                  <p>You don&apos;t have any orders yet.</p>
+                  <p>{t("subscriptions.youDontHaveAnyOrdersYet", language)}</p>
                 </div>
               ) : (
                 <div className="space-y-6">
@@ -576,7 +722,7 @@ export default function MySubscriptionsPage() {
                           </Badge>
                           <Button variant="ghost" size="sm" asChild>
                             <Link href={`/orders/${order.id}`}>
-                              View Details
+                              {t("subscriptions.viewDetails", language)}
                             </Link>
                           </Button>
                         </div>
@@ -585,15 +731,19 @@ export default function MySubscriptionsPage() {
                         {order.items.map((item) => (
                           <div key={item.id} className="flex justify-between">
                             <span>
-                              {item.quantity} × {item.name}
+                              {item.quantity} ×{" "}
+                              {t(`products.${item.nameKey}.name`, language)}
                             </span>
                             <span>${item.price.toFixed(2)}</span>
                           </div>
                         ))}
                       </div>
                       <div className="flex justify-between font-medium pt-2">
-                        <span>Total</span>
-                        <span>${order.total.toFixed(2)}</span>
+                        <span>{t("subscriptions.total", language)}</span>
+                        <span>
+                          {t("subscriptions.price", language)}{" "}
+                          {order.total.toFixed(2)}
+                        </span>
                       </div>
                       <Separator />
                     </div>
