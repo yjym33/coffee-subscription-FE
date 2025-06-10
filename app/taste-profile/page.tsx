@@ -1,20 +1,40 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { useRouter } from "next/navigation"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Label } from "@/components/ui/label"
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-import { Slider } from "@/components/ui/slider"
-import { Checkbox } from "@/components/ui/checkbox"
-import { Progress } from "@/components/ui/progress"
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Label } from "@/components/ui/label";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Slider } from "@/components/ui/slider";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Progress } from "@/components/ui/progress";
+import { useLanguage } from "@/hooks/use-language";
+import { t } from "@/lib/translations";
+
+type TasteProfile = {
+  flavorPreference: string;
+  acidity: number;
+  body: number;
+  roastLevel: string;
+  brewMethod: string[];
+  drinkingTime: string[];
+  caffeine: string;
+};
 
 export default function TasteProfilePage() {
-  const router = useRouter()
-  const [step, setStep] = useState(1)
-  const [progress, setProgress] = useState(25)
-  const [tasteProfile, setTasteProfile] = useState({
+  const router = useRouter();
+  const { language } = useLanguage();
+  const [step, setStep] = useState(1);
+  const [progress, setProgress] = useState(25);
+  const [tasteProfile, setTasteProfile] = useState<TasteProfile>({
     flavorPreference: "",
     acidity: 50,
     body: 50,
@@ -22,57 +42,65 @@ export default function TasteProfilePage() {
     brewMethod: [],
     drinkingTime: [],
     caffeine: "",
-  })
+  });
 
   const handleNextStep = () => {
-    const nextStep = step + 1
-    setStep(nextStep)
-    setProgress(nextStep * 25)
-  }
+    const nextStep = step + 1;
+    setStep(nextStep);
+    setProgress(nextStep * 25);
+  };
 
   const handlePrevStep = () => {
-    const prevStep = step - 1
-    setStep(prevStep)
-    setProgress(prevStep * 25)
-  }
+    const prevStep = step - 1;
+    setStep(prevStep);
+    setProgress(prevStep * 25);
+  };
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
     // In a real app, you would send this data to your backend
-    console.log("Taste profile submitted:", tasteProfile)
-    router.push("/catalog")
-  }
+    console.log("Taste profile submitted:", tasteProfile);
+    router.push("/catalog");
+  };
 
-  const handleRadioChange = (name, value) => {
+  const handleRadioChange = (name: keyof TasteProfile, value: string) => {
     setTasteProfile((prev) => ({
       ...prev,
       [name]: value,
-    }))
-  }
+    }));
+  };
 
-  const handleSliderChange = (name, value) => {
+  const handleSliderChange = (name: keyof TasteProfile, value: number[]) => {
     setTasteProfile((prev) => ({
       ...prev,
       [name]: value[0],
-    }))
-  }
+    }));
+  };
 
-  const handleCheckboxChange = (name, value, checked) => {
+  const handleCheckboxChange = (
+    name: keyof TasteProfile,
+    value: string,
+    checked: boolean
+  ) => {
     setTasteProfile((prev) => {
-      const currentValues = prev[name] || []
+      const currentValues = prev[name] as string[];
       return {
         ...prev,
-        [name]: checked ? [...currentValues, value] : currentValues.filter((item) => item !== value),
-      }
-    })
-  }
+        [name]: checked
+          ? [...currentValues, value]
+          : currentValues.filter((item) => item !== value),
+      };
+    });
+  };
 
   return (
     <div className="container max-w-2xl py-10">
       <div className="mb-8 text-center">
-        <h1 className="text-3xl font-bold mb-2">Discover Your Coffee Profile</h1>
+        <h1 className="text-3xl font-bold mb-2">
+          {t("tasteProfile.title", language)}
+        </h1>
         <p className="text-muted-foreground">
-          Help us understand your preferences so we can recommend the perfect coffee for you
+          {t("tasteProfile.description", language)}
         </p>
       </div>
 
@@ -83,16 +111,10 @@ export default function TasteProfilePage() {
       <Card>
         <CardHeader>
           <CardTitle>
-            {step === 1 && "Flavor Preferences"}
-            {step === 2 && "Brewing & Drinking Habits"}
-            {step === 3 && "Roast & Body Preferences"}
-            {step === 4 && "Almost Done!"}
+            {t(`tasteProfile.steps.${step}.title`, language)}
           </CardTitle>
           <CardDescription>
-            {step === 1 && "Tell us about the flavors you enjoy in coffee"}
-            {step === 2 && "How do you brew and when do you drink your coffee?"}
-            {step === 3 && "Let's talk about your preferred roast level and body"}
-            {step === 4 && "Just a few more details to perfect your recommendations"}
+            {t(`tasteProfile.steps.${step}.description`, language)}
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -100,47 +122,78 @@ export default function TasteProfilePage() {
             {step === 1 && (
               <div className="space-y-6">
                 <div className="space-y-3">
-                  <Label>What flavor notes do you prefer in your coffee?</Label>
+                  <Label>
+                    {t("tasteProfile.flavorPreferences.title", language)}
+                  </Label>
                   <RadioGroup
                     value={tasteProfile.flavorPreference}
-                    onValueChange={(value) => handleRadioChange("flavorPreference", value)}
+                    onValueChange={(value) =>
+                      handleRadioChange("flavorPreference", value)
+                    }
                   >
                     <div className="flex items-center space-x-2">
                       <RadioGroupItem value="fruity" id="fruity" />
-                      <Label htmlFor="fruity">Fruity & Bright (berries, citrus)</Label>
+                      <Label htmlFor="fruity">
+                        {t(
+                          "tasteProfile.flavorPreferences.options.fruity",
+                          language
+                        )}
+                      </Label>
                     </div>
                     <div className="flex items-center space-x-2">
                       <RadioGroupItem value="nutty" id="nutty" />
-                      <Label htmlFor="nutty">Nutty & Chocolatey (hazelnut, cocoa)</Label>
+                      <Label htmlFor="nutty">
+                        {t(
+                          "tasteProfile.flavorPreferences.options.nutty",
+                          language
+                        )}
+                      </Label>
                     </div>
                     <div className="flex items-center space-x-2">
                       <RadioGroupItem value="caramel" id="caramel" />
-                      <Label htmlFor="caramel">Caramel & Sweet (toffee, brown sugar)</Label>
+                      <Label htmlFor="caramel">
+                        {t(
+                          "tasteProfile.flavorPreferences.options.caramel",
+                          language
+                        )}
+                      </Label>
                     </div>
                     <div className="flex items-center space-x-2">
                       <RadioGroupItem value="floral" id="floral" />
-                      <Label htmlFor="floral">Floral & Herbal (jasmine, bergamot)</Label>
+                      <Label htmlFor="floral">
+                        {t(
+                          "tasteProfile.flavorPreferences.options.floral",
+                          language
+                        )}
+                      </Label>
                     </div>
                     <div className="flex items-center space-x-2">
                       <RadioGroupItem value="earthy" id="earthy" />
-                      <Label htmlFor="earthy">Earthy & Spicy (tobacco, clove)</Label>
+                      <Label htmlFor="earthy">
+                        {t(
+                          "tasteProfile.flavorPreferences.options.earthy",
+                          language
+                        )}
+                      </Label>
                     </div>
                   </RadioGroup>
                 </div>
 
                 <div className="space-y-3">
-                  <Label>How do you feel about acidity in coffee?</Label>
+                  <Label>{t("tasteProfile.acidity.title", language)}</Label>
                   <div className="space-y-3">
                     <div className="flex justify-between text-xs text-muted-foreground">
-                      <span>Low acidity</span>
-                      <span>High acidity</span>
+                      <span>{t("tasteProfile.acidity.low", language)}</span>
+                      <span>{t("tasteProfile.acidity.high", language)}</span>
                     </div>
                     <Slider
                       value={[tasteProfile.acidity]}
                       min={0}
                       max={100}
                       step={1}
-                      onValueChange={(value) => handleSliderChange("acidity", value)}
+                      onValueChange={(value) =>
+                        handleSliderChange("acidity", value)
+                      }
                     />
                   </div>
                 </div>
@@ -150,93 +203,202 @@ export default function TasteProfilePage() {
             {step === 2 && (
               <div className="space-y-6">
                 <div className="space-y-3">
-                  <Label>How do you typically brew your coffee? (Select all that apply)</Label>
+                  <Label>{t("tasteProfile.brewMethod.title", language)}</Label>
                   <div className="grid grid-cols-2 gap-2">
                     <div className="flex items-center space-x-2">
                       <Checkbox
                         id="drip"
                         checked={tasteProfile.brewMethod.includes("drip")}
-                        onCheckedChange={(checked) => handleCheckboxChange("brewMethod", "drip", checked)}
+                        onCheckedChange={(checked: boolean) =>
+                          handleCheckboxChange("brewMethod", "drip", checked)
+                        }
                       />
-                      <Label htmlFor="drip">Drip/Pour Over</Label>
+                      <Label htmlFor="drip">
+                        {t("tasteProfile.brewMethod.options.drip", language)}
+                      </Label>
                     </div>
                     <div className="flex items-center space-x-2">
                       <Checkbox
                         id="espresso"
                         checked={tasteProfile.brewMethod.includes("espresso")}
-                        onCheckedChange={(checked) => handleCheckboxChange("brewMethod", "espresso", checked)}
+                        onCheckedChange={(checked: boolean) =>
+                          handleCheckboxChange(
+                            "brewMethod",
+                            "espresso",
+                            checked
+                          )
+                        }
                       />
-                      <Label htmlFor="espresso">Espresso</Label>
+                      <Label htmlFor="espresso">
+                        {t(
+                          "tasteProfile.brewMethod.options.espresso",
+                          language
+                        )}
+                      </Label>
                     </div>
                     <div className="flex items-center space-x-2">
                       <Checkbox
                         id="french-press"
-                        checked={tasteProfile.brewMethod.includes("french-press")}
-                        onCheckedChange={(checked) => handleCheckboxChange("brewMethod", "french-press", checked)}
+                        checked={tasteProfile.brewMethod.includes(
+                          "french-press"
+                        )}
+                        onCheckedChange={(checked: boolean) =>
+                          handleCheckboxChange(
+                            "brewMethod",
+                            "french-press",
+                            checked
+                          )
+                        }
                       />
-                      <Label htmlFor="french-press">French Press</Label>
+                      <Label htmlFor="french-press">
+                        {t(
+                          "tasteProfile.brewMethod.options.french-press",
+                          language
+                        )}
+                      </Label>
                     </div>
                     <div className="flex items-center space-x-2">
                       <Checkbox
                         id="aeropress"
                         checked={tasteProfile.brewMethod.includes("aeropress")}
-                        onCheckedChange={(checked) => handleCheckboxChange("brewMethod", "aeropress", checked)}
+                        onCheckedChange={(checked: boolean) =>
+                          handleCheckboxChange(
+                            "brewMethod",
+                            "aeropress",
+                            checked
+                          )
+                        }
                       />
-                      <Label htmlFor="aeropress">AeroPress</Label>
+                      <Label htmlFor="aeropress">
+                        {t(
+                          "tasteProfile.brewMethod.options.aeropress",
+                          language
+                        )}
+                      </Label>
                     </div>
                     <div className="flex items-center space-x-2">
                       <Checkbox
                         id="cold-brew"
                         checked={tasteProfile.brewMethod.includes("cold-brew")}
-                        onCheckedChange={(checked) => handleCheckboxChange("brewMethod", "cold-brew", checked)}
+                        onCheckedChange={(checked: boolean) =>
+                          handleCheckboxChange(
+                            "brewMethod",
+                            "cold-brew",
+                            checked
+                          )
+                        }
                       />
-                      <Label htmlFor="cold-brew">Cold Brew</Label>
+                      <Label htmlFor="cold-brew">
+                        {t(
+                          "tasteProfile.brewMethod.options.cold-brew",
+                          language
+                        )}
+                      </Label>
                     </div>
                     <div className="flex items-center space-x-2">
                       <Checkbox
                         id="moka-pot"
                         checked={tasteProfile.brewMethod.includes("moka-pot")}
-                        onCheckedChange={(checked) => handleCheckboxChange("brewMethod", "moka-pot", checked)}
+                        onCheckedChange={(checked: boolean) =>
+                          handleCheckboxChange(
+                            "brewMethod",
+                            "moka-pot",
+                            checked
+                          )
+                        }
                       />
-                      <Label htmlFor="moka-pot">Moka Pot</Label>
+                      <Label htmlFor="moka-pot">
+                        {t(
+                          "tasteProfile.brewMethod.options.moka-pot",
+                          language
+                        )}
+                      </Label>
                     </div>
                   </div>
                 </div>
 
                 <div className="space-y-3">
-                  <Label>When do you typically drink coffee? (Select all that apply)</Label>
+                  <Label>
+                    {t("tasteProfile.drinkingTime.title", language)}
+                  </Label>
                   <div className="grid grid-cols-2 gap-2">
                     <div className="flex items-center space-x-2">
                       <Checkbox
                         id="morning"
                         checked={tasteProfile.drinkingTime.includes("morning")}
-                        onCheckedChange={(checked) => handleCheckboxChange("drinkingTime", "morning", checked)}
+                        onCheckedChange={(checked: boolean) =>
+                          handleCheckboxChange(
+                            "drinkingTime",
+                            "morning",
+                            checked
+                          )
+                        }
                       />
-                      <Label htmlFor="morning">Morning (6am-10am)</Label>
+                      <Label htmlFor="morning">
+                        {t(
+                          "tasteProfile.drinkingTime.options.morning",
+                          language
+                        )}
+                      </Label>
                     </div>
                     <div className="flex items-center space-x-2">
                       <Checkbox
                         id="midday"
                         checked={tasteProfile.drinkingTime.includes("midday")}
-                        onCheckedChange={(checked) => handleCheckboxChange("drinkingTime", "midday", checked)}
+                        onCheckedChange={(checked: boolean) =>
+                          handleCheckboxChange(
+                            "drinkingTime",
+                            "midday",
+                            checked
+                          )
+                        }
                       />
-                      <Label htmlFor="midday">Midday (10am-2pm)</Label>
+                      <Label htmlFor="midday">
+                        {t(
+                          "tasteProfile.drinkingTime.options.midday",
+                          language
+                        )}
+                      </Label>
                     </div>
                     <div className="flex items-center space-x-2">
                       <Checkbox
                         id="afternoon"
-                        checked={tasteProfile.drinkingTime.includes("afternoon")}
-                        onCheckedChange={(checked) => handleCheckboxChange("drinkingTime", "afternoon", checked)}
+                        checked={tasteProfile.drinkingTime.includes(
+                          "afternoon"
+                        )}
+                        onCheckedChange={(checked: boolean) =>
+                          handleCheckboxChange(
+                            "drinkingTime",
+                            "afternoon",
+                            checked
+                          )
+                        }
                       />
-                      <Label htmlFor="afternoon">Afternoon (2pm-6pm)</Label>
+                      <Label htmlFor="afternoon">
+                        {t(
+                          "tasteProfile.drinkingTime.options.afternoon",
+                          language
+                        )}
+                      </Label>
                     </div>
                     <div className="flex items-center space-x-2">
                       <Checkbox
                         id="evening"
                         checked={tasteProfile.drinkingTime.includes("evening")}
-                        onCheckedChange={(checked) => handleCheckboxChange("drinkingTime", "evening", checked)}
+                        onCheckedChange={(checked: boolean) =>
+                          handleCheckboxChange(
+                            "drinkingTime",
+                            "evening",
+                            checked
+                          )
+                        }
                       />
-                      <Label htmlFor="evening">Evening (after 6pm)</Label>
+                      <Label htmlFor="evening">
+                        {t(
+                          "tasteProfile.drinkingTime.options.evening",
+                          language
+                        )}
+                      </Label>
                     </div>
                   </div>
                 </div>
@@ -246,47 +408,70 @@ export default function TasteProfilePage() {
             {step === 3 && (
               <div className="space-y-6">
                 <div className="space-y-3">
-                  <Label>What roast level do you prefer?</Label>
+                  <Label>{t("tasteProfile.roastLevel.title", language)}</Label>
                   <RadioGroup
                     value={tasteProfile.roastLevel}
-                    onValueChange={(value) => handleRadioChange("roastLevel", value)}
+                    onValueChange={(value) =>
+                      handleRadioChange("roastLevel", value)
+                    }
                   >
                     <div className="flex items-center space-x-2">
                       <RadioGroupItem value="light" id="light" />
-                      <Label htmlFor="light">Light (bright, tea-like, higher acidity)</Label>
+                      <Label htmlFor="light">
+                        {t("tasteProfile.roastLevel.options.light", language)}
+                      </Label>
                     </div>
                     <div className="flex items-center space-x-2">
                       <RadioGroupItem value="medium" id="medium" />
-                      <Label htmlFor="medium">Medium (balanced, caramel sweetness)</Label>
+                      <Label htmlFor="medium">
+                        {t("tasteProfile.roastLevel.options.medium", language)}
+                      </Label>
                     </div>
                     <div className="flex items-center space-x-2">
                       <RadioGroupItem value="medium-dark" id="medium-dark" />
-                      <Label htmlFor="medium-dark">Medium-Dark (rich, chocolate notes)</Label>
+                      <Label htmlFor="medium-dark">
+                        {t(
+                          "tasteProfile.roastLevel.options.medium-dark",
+                          language
+                        )}
+                      </Label>
                     </div>
                     <div className="flex items-center space-x-2">
                       <RadioGroupItem value="dark" id="dark" />
-                      <Label htmlFor="dark">Dark (bold, smoky, lower acidity)</Label>
+                      <Label htmlFor="dark">
+                        {t("tasteProfile.roastLevel.options.dark", language)}
+                      </Label>
                     </div>
                     <div className="flex items-center space-x-2">
-                      <RadioGroupItem value="no-preference" id="no-preference" />
-                      <Label htmlFor="no-preference">No preference / Not sure</Label>
+                      <RadioGroupItem
+                        value="no-preference"
+                        id="no-preference"
+                      />
+                      <Label htmlFor="no-preference">
+                        {t(
+                          "tasteProfile.roastLevel.options.no-preference",
+                          language
+                        )}
+                      </Label>
                     </div>
                   </RadioGroup>
                 </div>
 
                 <div className="space-y-3">
-                  <Label>How do you like the body/mouthfeel of your coffee?</Label>
+                  <Label>{t("tasteProfile.body.title", language)}</Label>
                   <div className="space-y-3">
                     <div className="flex justify-between text-xs text-muted-foreground">
-                      <span>Light body</span>
-                      <span>Full body</span>
+                      <span>{t("tasteProfile.body.light", language)}</span>
+                      <span>{t("tasteProfile.body.full", language)}</span>
                     </div>
                     <Slider
                       value={[tasteProfile.body]}
                       min={0}
                       max={100}
                       step={1}
-                      onValueChange={(value) => handleSliderChange("body", value)}
+                      onValueChange={(value) =>
+                        handleSliderChange("body", value)
+                      }
                     />
                   </div>
                 </div>
@@ -296,22 +481,30 @@ export default function TasteProfilePage() {
             {step === 4 && (
               <div className="space-y-6">
                 <div className="space-y-3">
-                  <Label>Do you prefer regular or decaffeinated coffee?</Label>
+                  <Label>{t("tasteProfile.caffeine.title", language)}</Label>
                   <RadioGroup
                     value={tasteProfile.caffeine}
-                    onValueChange={(value) => handleRadioChange("caffeine", value)}
+                    onValueChange={(value) =>
+                      handleRadioChange("caffeine", value)
+                    }
                   >
                     <div className="flex items-center space-x-2">
                       <RadioGroupItem value="regular" id="regular" />
-                      <Label htmlFor="regular">Regular (with caffeine)</Label>
+                      <Label htmlFor="regular">
+                        {t("tasteProfile.caffeine.options.regular", language)}
+                      </Label>
                     </div>
                     <div className="flex items-center space-x-2">
                       <RadioGroupItem value="decaf" id="decaf" />
-                      <Label htmlFor="decaf">Decaffeinated</Label>
+                      <Label htmlFor="decaf">
+                        {t("tasteProfile.caffeine.options.decaf", language)}
+                      </Label>
                     </div>
                     <div className="flex items-center space-x-2">
                       <RadioGroupItem value="both" id="both" />
-                      <Label htmlFor="both">Both (depends on time of day)</Label>
+                      <Label htmlFor="both">
+                        {t("tasteProfile.caffeine.options.both", language)}
+                      </Label>
                     </div>
                   </RadioGroup>
                 </div>
@@ -322,22 +515,28 @@ export default function TasteProfilePage() {
         <CardFooter className="flex justify-between">
           {step > 1 ? (
             <Button variant="outline" onClick={handlePrevStep}>
-              Back
+              {t("tasteProfile.buttons.back", language)}
             </Button>
           ) : (
             <div></div>
           )}
           {step < 4 ? (
-            <Button onClick={handleNextStep} className="bg-amber-800 hover:bg-amber-900">
-              Continue
+            <Button
+              onClick={handleNextStep}
+              className="bg-amber-800 hover:bg-amber-900"
+            >
+              {t("tasteProfile.buttons.continue", language)}
             </Button>
           ) : (
-            <Button onClick={handleSubmit} className="bg-amber-800 hover:bg-amber-900">
-              Complete Profile
+            <Button
+              onClick={handleSubmit}
+              className="bg-amber-800 hover:bg-amber-900"
+            >
+              {t("tasteProfile.buttons.complete", language)}
             </Button>
           )}
         </CardFooter>
       </Card>
     </div>
-  )
+  );
 }

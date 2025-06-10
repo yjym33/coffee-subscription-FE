@@ -467,5 +467,90 @@
       "passwordMatch": "Passwords do not match",
       "agreeTerms": "You must agree to the terms and conditions"
     }
+  },
+  "tasteProfile": {
+    "title": "Discover Your Coffee Profile",
+    "description": "Help us understand your preferences so we can recommend the perfect coffee for you",
+    "steps": {
+      "1": {
+        "title": "Flavor Preferences",
+        "description": "Tell us about the flavors you enjoy in coffee"
+      },
+      "2": {
+        "title": "Brewing & Drinking Habits",
+        "description": "How do you brew and when do you drink your coffee?"
+      },
+      "3": {
+        "title": "Roast & Body Preferences",
+        "description": "Let's talk about your preferred roast level and body"
+      },
+      "4": {
+        "title": "Almost Done!",
+        "description": "Just a few more details to perfect your recommendations"
+      }
+    },
+    "flavorPreferences": {
+      "title": "What flavor notes do you prefer in your coffee?",
+      "options": {
+        "fruity": "Fruity & Bright (berries, citrus)",
+        "nutty": "Nutty & Chocolatey (hazelnut, cocoa)",
+        "caramel": "Caramel & Sweet",
+        "floral": "Floral & Herbal (jasmine, bergamot)",
+        "earthy": "Earthy & Spicy (tobacco, clove)"
+      }
+    },
+    "acidity": {
+      "title": "How do you feel about acidity in coffee?",
+      "low": "Low acidity",
+      "high": "High acidity"
+    },
+    "brewMethod": {
+      "title": "How do you typically brew your coffee? (Select all that apply)",
+      "options": {
+        "drip": "Drip/Pour Over",
+        "espresso": "Espresso",
+        "french-press": "French Press",
+        "aeropress": "AeroPress",
+        "cold-brew": "Cold Brew",
+        "moka-pot": "Moka Pot"
+      }
+    },
+    "drinkingTime": {
+      "title": "When do you typically drink coffee? (Select all that apply)",
+      "options": {
+        "morning": "Morning (6am-10am)",
+        "midday": "Midday (10am-2pm)",
+        "afternoon": "Afternoon (2pm-6pm)",
+        "evening": "Evening (after 6pm)"
+      }
+    },
+    "roastLevel": {
+      "title": "What roast level do you prefer?",
+      "options": {
+        "light": "Light (bright, tea-like, higher acidity)",
+        "medium": "Medium (balanced, caramel sweetness)",
+        "medium-dark": "Medium-Dark (rich, chocolate notes)",
+        "dark": "Dark (bold, smoky, lower acidity)",
+        "no-preference": "No preference / Not sure"
+      }
+    },
+    "body": {
+      "title": "How do you like the body/mouthfeel of your coffee?",
+      "light": "Light body",
+      "full": "Full body"
+    },
+    "caffeine": {
+      "title": "Do you prefer regular or decaffeinated coffee?",
+      "options": {
+        "regular": "Regular (with caffeine)",
+        "decaf": "Decaffeinated",
+        "both": "Both (depends on time of day)"
+      }
+    },
+    "buttons": {
+      "back": "Back",
+      "continue": "Continue",
+      "complete": "Complete Profile"
+    }
   }
 }
