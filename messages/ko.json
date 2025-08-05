@@ -258,6 +258,205 @@
       "description": "매일 마시는 커피가 단순한 습관을 넘어, 당신의 하루를 더욱 풍요롭게 만드는 특별한 순간이 될 수 있도록 최선을 다하겠습니다. 지능형 추천 시스템과 함께 당신만의 완벽한 한 잔을 찾아보세요."
     }
   },
+  "admin": {
+    "title": "Bean Bliss 관리자",
+    "version": "버전",
+    "search": {
+      "placeholder": "검색..."
+    },
+    "user": {
+      "name": "관리자",
+      "profile": "프로필",
+      "settings": "설정",
+      "logout": "로그아웃"
+    },
+    "menu": {
+      "dashboard": "대시보드",
+      "products": "상품 관리",
+      "orders": "주문 관리",
+      "customers": "고객 관리",
+      "subscriptions": "구독 관리",
+      "analytics": "분석",
+      "reports": "리포트",
+      "marketing": "마케팅",
+      "notifications": "알림",
+      "settings": "설정"
+    },
+    "dashboard": {
+      "title": "대시보드",
+      "subtitle": "비즈니스 개요 및 주요 지표",
+      "viewReports": "리포트 보기",
+      "stats": {
+        "revenue": "매출",
+        "customers": "고객",
+        "products": "상품",
+        "orders": "주문",
+        "fromLastMonth": "지난 달 대비",
+        "fromLastWeek": "지난 주 대비",
+        "thisWeek": "이번 주"
+      },
+      "tabs": {
+        "overview": "개요",
+        "recentOrders": "최근 주문",
+        "topProducts": "인기 상품"
+      },
+      "charts": {
+        "salesOverview": "매출 개요",
+        "recentActivity": "최근 활동",
+        "placeholder": "차트가 여기에 표시됩니다"
+      },
+      "activity": {
+        "newOrder": "새 주문",
+        "orderPlaced": "주문이 접수되었습니다",
+        "newCustomer": "신규 고객",
+        "customerRegistered": "고객이 등록되었습니다",
+        "productUpdate": "상품 업데이트",
+        "inventoryUpdated": "재고가 업데이트되었습니다"
+      },
+      "tables": {
+        "recentOrders": "최근 주문",
+        "topProducts": "인기 상품",
+        "unitsSold": "개 판매"
+      },
+      "viewAll": "모두 보기"
+    },
+    "products": {
+      "title": "상품 관리",
+      "subtitle": "커피 상품 관리 및 재고 추적",
+      "addProduct": "상품 추가",
+      "editProduct": "상품 수정",
+      "addProductDescription": "새로운 커피 상품을 추가합니다.",
+      "editProductDescription": "상품 정보를 수정합니다.",
+      "searchPlaceholder": "상품명으로 검색...",
+      "roast": "로스트",
+      "status": {
+        "active": "활성",
+        "inactive": "비활성",
+        "outOfStock": "품절"
+      },
+      "filter": {
+        "all": "전체 카테고리"
+      },
+      "form": {
+        "name": "상품명 (영문)",
+        "nameKo": "상품명 (한글)",
+        "namePlaceholder": "Ethiopian Yirgacheffe",
+        "nameKoPlaceholder": "에티오피아 예가체프",
+        "category": "카테고리",
+        "selectCategory": "카테고리 선택",
+        "roastLevel": "로스트 레벨",
+        "selectRoast": "로스트 선택",
+        "price": "가격 (원)",
+        "stock": "재고",
+        "description": "상품 설명",
+        "descriptionPlaceholder": "상품에 대한 자세한 설명을 입력하세요..."
+      },
+      "table": {
+        "product": "상품",
+        "category": "카테고리",
+        "price": "가격",
+        "stock": "재고",
+        "status": "상태",
+        "actions": "작업"
+      }
+    },
+    "orders": {
+      "title": "주문 관리",
+      "subtitle": "고객 주문 추적 및 관리",
+      "orderDetails": "주문 상세",
+      "customerInfo": "고객 정보",
+      "orderItems": "주문 상품",
+      "shippingInfo": "배송 정보",
+      "searchPlaceholder": "주문번호, 고객명, 이메일로 검색...",
+      "quantity": "수량",
+      "total": "총계",
+      "trackingNumber": "송장번호",
+      "shippingDate": "배송일",
+      "status": {
+        "pending": "대기중",
+        "processing": "처리중",
+        "shipped": "배송중",
+        "completed": "완료",
+        "cancelled": "취소"
+      },
+      "payment": {
+        "pending": "결제 대기",
+        "paid": "결제 완료",
+        "refunded": "환불",
+        "failed": "결제 실패"
+      },
+      "filter": {
+        "all": "전체 상태"
+      },
+      "stats": {
+        "total": "전체 주문",
+        "processing": "처리중",
+        "shipped": "배송중",
+        "completed": "완료"
+      },
+      "table": {
+        "order": "주문",
+        "customer": "고객",
+        "items": "상품",
+        "total": "총액",
+        "status": "상태",
+        "payment": "결제",
+        "actions": "작업",
+        "itemCount": "개 상품"
+      }
+    },
+    "customers": {
+      "title": "고객 관리",
+      "subtitle": "고객 정보 및 구독 현황 관리",
+      "customerDetails": "고객 상세정보",
+      "contactInfo": "연락처 정보",
+      "orderStats": "주문 통계",
+      "tastePreferences": "취향 선호도",
+      "searchPlaceholder": "고객명, 이메일, 전화번호로 검색...",
+      "joinedOn": "가입일:",
+      "lastOrder": "최근 주문:",
+      "totalOrders": "총 주문 수",
+      "totalSpent": "총 구매 금액",
+      "acidity": "산미",
+      "body": "바디감",
+      "caffeine": "카페인",
+      "status": {
+        "active": "활성",
+        "inactive": "비활성",
+        "suspended": "정지"
+      },
+      "subscription": {
+        "active": "구독중",
+        "paused": "일시정지",
+        "cancelled": "취소"
+      },
+      "filter": {
+        "all": "전체 상태"
+      },
+      "stats": {
+        "total": "전체 고객",
+        "active": "활성 고객",
+        "subscribed": "구독 고객",
+        "inactive": "비활성 고객"
+      },
+      "table": {
+        "customer": "고객",
+        "contact": "연락처",
+        "orders": "주문",
+        "spent": "구매 금액",
+        "status": "상태",
+        "subscription": "구독",
+        "actions": "작업"
+      }
+    },
+    "common": {
+      "save": "저장",
+      "cancel": "취소",
+      "edit": "수정",
+      "delete": "삭제",
+      "view": "보기"
+    }
+  },
   "footer": {
     "description": "당신의 취향에 맞춘 개인화된 커피 구독 서비스입니다.",
     "shop": {

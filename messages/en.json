@@ -258,6 +258,205 @@
       "description": "We are committed to making your daily coffee more than just a habit, but a special moment that enriches your day. Find your perfect cup with our intelligent recommendation system."
     }
   },
+  "admin": {
+    "title": "Bean Bliss Admin",
+    "version": "Version",
+    "search": {
+      "placeholder": "Search..."
+    },
+    "user": {
+      "name": "Administrator",
+      "profile": "Profile",
+      "settings": "Settings",
+      "logout": "Logout"
+    },
+    "menu": {
+      "dashboard": "Dashboard",
+      "products": "Products",
+      "orders": "Orders",
+      "customers": "Customers",
+      "subscriptions": "Subscriptions",
+      "analytics": "Analytics",
+      "reports": "Reports",
+      "marketing": "Marketing",
+      "notifications": "Notifications",
+      "settings": "Settings"
+    },
+    "dashboard": {
+      "title": "Dashboard",
+      "subtitle": "Business overview and key metrics",
+      "viewReports": "View Reports",
+      "stats": {
+        "revenue": "Revenue",
+        "customers": "Customers",
+        "products": "Products",
+        "orders": "Orders",
+        "fromLastMonth": "from last month",
+        "fromLastWeek": "from last week",
+        "thisWeek": "this week"
+      },
+      "tabs": {
+        "overview": "Overview",
+        "recentOrders": "Recent Orders",
+        "topProducts": "Top Products"
+      },
+      "charts": {
+        "salesOverview": "Sales Overview",
+        "recentActivity": "Recent Activity",
+        "placeholder": "Chart will be displayed here"
+      },
+      "activity": {
+        "newOrder": "New Order",
+        "orderPlaced": "Order has been placed",
+        "newCustomer": "New Customer",
+        "customerRegistered": "Customer registered",
+        "productUpdate": "Product Update",
+        "inventoryUpdated": "Inventory has been updated"
+      },
+      "tables": {
+        "recentOrders": "Recent Orders",
+        "topProducts": "Top Products",
+        "unitsSold": "units sold"
+      },
+      "viewAll": "View All"
+    },
+    "products": {
+      "title": "Product Management",
+      "subtitle": "Manage coffee products and track inventory",
+      "addProduct": "Add Product",
+      "editProduct": "Edit Product",
+      "addProductDescription": "Add a new coffee product to your catalog.",
+      "editProductDescription": "Edit product information.",
+      "searchPlaceholder": "Search by product name...",
+      "roast": "Roast",
+      "status": {
+        "active": "Active",
+        "inactive": "Inactive",
+        "outOfStock": "Out of Stock"
+      },
+      "filter": {
+        "all": "All Categories"
+      },
+      "form": {
+        "name": "Product Name (English)",
+        "nameKo": "Product Name (Korean)",
+        "namePlaceholder": "Ethiopian Yirgacheffe",
+        "nameKoPlaceholder": "에티오피아 예가체프",
+        "category": "Category",
+        "selectCategory": "Select Category",
+        "roastLevel": "Roast Level",
+        "selectRoast": "Select Roast",
+        "price": "Price (KRW)",
+        "stock": "Stock",
+        "description": "Description",
+        "descriptionPlaceholder": "Enter detailed product description..."
+      },
+      "table": {
+        "product": "Product",
+        "category": "Category",
+        "price": "Price",
+        "stock": "Stock",
+        "status": "Status",
+        "actions": "Actions"
+      }
+    },
+    "orders": {
+      "title": "Order Management",
+      "subtitle": "Track and manage customer orders",
+      "orderDetails": "Order Details",
+      "customerInfo": "Customer Information",
+      "orderItems": "Order Items",
+      "shippingInfo": "Shipping Information",
+      "searchPlaceholder": "Search by order ID, customer name, or email...",
+      "quantity": "Quantity",
+      "total": "Total",
+      "trackingNumber": "Tracking Number",
+      "shippingDate": "Shipping Date",
+      "status": {
+        "pending": "Pending",
+        "processing": "Processing",
+        "shipped": "Shipped",
+        "completed": "Completed",
+        "cancelled": "Cancelled"
+      },
+      "payment": {
+        "pending": "Payment Pending",
+        "paid": "Paid",
+        "refunded": "Refunded",
+        "failed": "Payment Failed"
+      },
+      "filter": {
+        "all": "All Status"
+      },
+      "stats": {
+        "total": "Total Orders",
+        "processing": "Processing",
+        "shipped": "Shipped",
+        "completed": "Completed"
+      },
+      "table": {
+        "order": "Order",
+        "customer": "Customer",
+        "items": "Items",
+        "total": "Total",
+        "status": "Status",
+        "payment": "Payment",
+        "actions": "Actions",
+        "itemCount": "items"
+      }
+    },
+    "customers": {
+      "title": "Customer Management",
+      "subtitle": "Manage customer information and subscription status",
+      "customerDetails": "Customer Details",
+      "contactInfo": "Contact Information",
+      "orderStats": "Order Statistics",
+      "tastePreferences": "Taste Preferences",
+      "searchPlaceholder": "Search by name, email, or phone...",
+      "joinedOn": "Joined:",
+      "lastOrder": "Last order:",
+      "totalOrders": "Total Orders",
+      "totalSpent": "Total Spent",
+      "acidity": "Acidity",
+      "body": "Body",
+      "caffeine": "Caffeine",
+      "status": {
+        "active": "Active",
+        "inactive": "Inactive",
+        "suspended": "Suspended"
+      },
+      "subscription": {
+        "active": "Active",
+        "paused": "Paused",
+        "cancelled": "Cancelled"
+      },
+      "filter": {
+        "all": "All Status"
+      },
+      "stats": {
+        "total": "Total Customers",
+        "active": "Active Customers",
+        "subscribed": "Subscribed",
+        "inactive": "Inactive"
+      },
+      "table": {
+        "customer": "Customer",
+        "contact": "Contact",
+        "orders": "Orders",
+        "spent": "Spent",
+        "status": "Status",
+        "subscription": "Subscription",
+        "actions": "Actions"
+      }
+    },
+    "common": {
+      "save": "Save",
+      "cancel": "Cancel",
+      "edit": "Edit",
+      "delete": "Delete",
+      "view": "View"
+    }
+  },
   "footer": {
     "description": "Personalized coffee subscriptions tailored to your taste preferences.",
     "shop": {
