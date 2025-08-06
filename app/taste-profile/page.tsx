@@ -58,8 +58,7 @@ export default function TasteProfilePage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // In a real app, you would send this data to your backend
-    console.log("Taste profile submitted:", tasteProfile);
+    // TODO: Send taste profile data to backend
     router.push("/catalog");
   };
 

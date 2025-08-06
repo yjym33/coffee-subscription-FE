@@ -146,8 +146,7 @@ export default function AdminProducts() {
   });
 
   const handleAddProduct = () => {
-    // Add product logic here
-    console.log("Adding product:", newProduct);
+    // TODO: Implement add product API call
     setIsAddDialogOpen(false);
     setNewProduct({
       name: "",

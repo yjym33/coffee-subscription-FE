@@ -32,7 +32,7 @@ export default function LoginPage() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Handle login logic here
-    console.log("Login attempt:", formData);
+    // TODO: Implement authentication logic
     // Redirect to dashboard or home page on successful login
     router.push("/");
   };

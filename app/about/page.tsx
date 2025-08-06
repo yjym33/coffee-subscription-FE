@@ -1,10 +1,8 @@
 "use client";
 
-import React from "react";
 import Image from "next/image";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
 import {
   Coffee,
   Heart,
@@ -225,7 +223,7 @@ export default function AboutUsPage() {
                       className="object-cover"
                     />
                   </div>
-                  <div className="relative aspect-square rounded-xSl overflow-hidden border border-border">
+                  <div className="relative aspect-square rounded-xl overflow-hidden border border-border">
                     <Image
                       src="/images/coffee/coffee-delivery.png"
                       alt="Coffee delivery"
