@@ -32,7 +32,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
-import { useLanguage } from "@/hooks/use-language";
+import { useLanguage } from "@/hooks/use-language-store";
 import { t } from "@/lib/translations";
 
 type Subscription = {

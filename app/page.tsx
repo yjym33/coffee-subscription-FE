@@ -9,7 +9,7 @@ import { ArrowRight, Coffee, Gift, Truck } from "lucide-react";
 import FeaturedProducts from "@/components/home/featured-products";
 import TestimonialSection from "@/components/home/testimonial-section";
 import HowItWorks from "@/components/home/how-it-works";
-import { useLanguage } from "@/hooks/use-language";
+import { useLanguage } from "@/hooks/use-language-store";
 import { t } from "@/lib/translations";
 
 export default function Home() {

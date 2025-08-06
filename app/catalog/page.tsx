@@ -17,8 +17,8 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { useLanguage } from "@/hooks/use-language";
-import { useCart } from "@/hooks/use-cart";
+import { useLanguage } from "@/hooks/use-language-store";
+import { useCart } from "@/hooks/use-cart-store";
 import { t } from "@/lib/translations";
 import { coffeeProducts, Coffee } from "@/data/coffee-products";
 

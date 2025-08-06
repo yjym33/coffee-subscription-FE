@@ -4,8 +4,7 @@ import "./globals.css";
 import Header from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
 import { ThemeProvider } from "@/components/common/theme-provider";
-import { LanguageProvider } from "@/hooks/use-language";
-import { CartProvider } from "@/hooks/use-cart";
+import { QueryProvider } from "@/components/providers/query-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,17 +23,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <LanguageProvider>
-          <CartProvider>
-            <ThemeProvider attribute="class" defaultTheme="light">
-              <div className="flex min-h-screen flex-col">
-                <Header />
-                <main className="flex-1">{children}</main>
-                <Footer />
-              </div>
-            </ThemeProvider>
-          </CartProvider>
-        </LanguageProvider>
+        <QueryProvider>
+          <ThemeProvider attribute="class" defaultTheme="light">
+            <div className="flex min-h-screen flex-col">
+              <Header />
+              <main className="flex-1">{children}</main>
+              <Footer />
+            </div>
+          </ThemeProvider>
+        </QueryProvider>
       </body>
     </html>
   );

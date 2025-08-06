@@ -18,7 +18,7 @@ import {
   SkipForward,
   Plus,
 } from "lucide-react";
-import { useLanguage } from "@/hooks/use-language";
+import { useLanguage } from "@/hooks/use-language-store";
 import { t } from "@/lib/translations";
 import {
   subscriptionPlans,

@@ -9,8 +9,8 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { Minus, Plus, Trash2, ShoppingBag, ArrowLeft } from "lucide-react";
-import { useCart } from "@/hooks/use-cart";
-import { useLanguage } from "@/hooks/use-language";
+import { useCart } from "@/hooks/use-cart-store";
+import { useLanguage } from "@/hooks/use-language-store";
 import { t } from "@/lib/translations";
 
 export default function CartPage() {

@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
-import { useLanguage } from "@/hooks/use-language";
+import { useLanguage } from "@/hooks/use-language-store";
 import { t } from "@/lib/translations";
 import { ModeToggle } from "@/components/common/mode-toggle";
 

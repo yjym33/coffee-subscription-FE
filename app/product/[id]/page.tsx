@@ -18,8 +18,8 @@ import {
   Clock,
   Droplets,
 } from "lucide-react";
-import { useLanguage } from "@/hooks/use-language";
-import { useCart } from "@/hooks/use-cart";
+import { useLanguage } from "@/hooks/use-language-store";
+import { useCart } from "@/hooks/use-cart-store";
 import { t } from "@/lib/translations";
 import { getCoffeeById, getFeaturedCoffees } from "@/data/coffee-products";
 

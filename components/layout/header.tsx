@@ -16,8 +16,8 @@ import { Coffee, Menu, ShoppingCart, User } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ModeToggle } from "../common/mode-toggle";
 import { LanguageToggle } from "../common/language-toggle";
-import { useLanguage } from "@/hooks/use-language";
-import { useCart } from "@/hooks/use-cart";
+import { useLanguage } from "@/hooks/use-language-store";
+import { useCart } from "@/hooks/use-cart-store";
 import { t } from "@/lib/translations";
 
 export default function Header() {
