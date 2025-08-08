@@ -751,5 +751,319 @@
       "continue": "Continue",
       "complete": "Complete Profile"
     }
+  },
+  "admin": {
+    "title": "Bean Bliss Admin",
+    "version": "Version",
+    "menu": {
+      "dashboard": "Dashboard",
+      "products": "Products",
+      "orders": "Orders",
+      "customers": "Customers",
+      "subscriptions": "Subscriptions",
+      "analytics": "Analytics",
+      "reports": "Reports",
+      "marketing": "Marketing",
+      "notifications": "Notifications",
+      "settings": "Settings"
+    },
+    "common": {
+      "save": "Save",
+      "cancel": "Cancel",
+      "edit": "Edit",
+      "delete": "Delete",
+      "view": "View",
+      "export": "Export",
+      "filter": "Filter",
+      "search": "Search",
+      "loading": "Loading...",
+      "noData": "No data available"
+    },
+    "dashboard": {
+      "title": "Dashboard",
+      "subtitle": "Overview of your coffee subscription business",
+      "viewReports": "View Reports",
+      "viewAll": "View All",
+      "stats": {
+        "revenue": "Total Revenue",
+        "customers": "Total Customers",
+        "products": "Total Products",
+        "orders": "Total Orders",
+        "fromLastMonth": "from last month",
+        "fromLastWeek": "from last week",
+        "thisWeek": "this week"
+      },
+      "tabs": {
+        "overview": "Overview",
+        "recentOrders": "Recent Orders",
+        "topProducts": "Top Products"
+      },
+      "charts": {
+        "salesOverview": "Sales Overview",
+        "recentActivity": "Recent Activity",
+        "placeholder": "Chart visualization placeholder"
+      },
+      "activity": {
+        "newOrder": "New order received",
+        "orderPlaced": "Order placed by customer",
+        "newCustomer": "New customer registered",
+        "customerRegistered": "Customer registered successfully",
+        "productUpdate": "Product inventory updated",
+        "inventoryUpdated": "Inventory levels updated"
+      },
+      "tables": {
+        "recentOrders": "Recent Orders",
+        "topProducts": "Top Selling Products",
+        "unitsSold": "units sold"
+      }
+    },
+    "products": {
+      "title": "Products",
+      "subtitle": "Manage your coffee products and inventory",
+      "addProduct": "Add Product",
+      "editProduct": "Edit Product",
+      "addProductDescription": "Add a new coffee product to your catalog.",
+      "editProductDescription": "Edit the selected coffee product.",
+      "searchPlaceholder": "Search products...",
+      "filter": {
+        "all": "All Categories"
+      },
+      "status": {
+        "active": "Active",
+        "inactive": "Inactive",
+        "outOfStock": "Out of Stock"
+      },
+      "roast": "Roast",
+      "table": {
+        "product": "Product",
+        "category": "Category",
+        "price": "Price",
+        "stock": "Stock",
+        "status": "Status",
+        "actions": "Actions"
+      },
+      "form": {
+        "name": "Product Name (English)",
+        "nameKo": "Product Name (Korean)",
+        "namePlaceholder": "Ethiopian Yirgacheffe",
+        "nameKoPlaceholder": "에티오피아 예가체프",
+        "category": "Category",
+        "selectCategory": "Select category",
+        "roastLevel": "Roast Level",
+        "selectRoast": "Select roast level",
+        "price": "Price",
+        "stock": "Stock",
+        "description": "Description",
+        "descriptionPlaceholder": "Describe the coffee's flavor profile and characteristics..."
+      }
+    },
+    "orders": {
+      "title": "Orders",
+      "subtitle": "Manage customer orders and shipping",
+      "status": {
+        "completed": "Completed",
+        "processing": "Processing",
+        "shipped": "Shipped",
+        "cancelled": "Cancelled"
+      }
+    },
+    "customers": {
+      "title": "Customers",
+      "subtitle": "Manage customer accounts and information",
+      "searchPlaceholder": "Search customers...",
+      "joinedOn": "Joined on",
+      "lastOrder": "Last order:",
+      "customerDetails": "Customer Details",
+      "contactInfo": "Contact Information",
+      "orderStats": "Order Statistics",
+      "tastePreferences": "Taste Preferences",
+      "totalOrders": "Total Orders",
+      "totalSpent": "Total Spent",
+      "acidity": "Acidity",
+      "body": "Body",
+      "caffeine": "Caffeine",
+      "stats": {
+        "total": "Total Customers",
+        "active": "Active Customers",
+        "subscribed": "Subscribed",
+        "inactive": "Inactive"
+      },
+      "status": {
+        "active": "Active",
+        "inactive": "Inactive",
+        "suspended": "Suspended"
+      },
+      "subscription": {
+        "active": "Active",
+        "paused": "Paused",
+        "cancelled": "Cancelled"
+      },
+      "filter": {
+        "all": "All Status"
+      },
+      "table": {
+        "customer": "Customer",
+        "contact": "Contact",
+        "orders": "Orders",
+        "spent": "Total Spent",
+        "status": "Status",
+        "subscription": "Subscription",
+        "actions": "Actions"
+      }
+    },
+    "subscriptions": {
+      "title": "Subscriptions",
+      "subtitle": "Manage customer subscriptions and schedules",
+      "searchPlaceholder": "Search subscriptions...",
+      "stats": {
+        "total": "Total Subscriptions",
+        "active": "Active",
+        "paused": "Paused",
+        "cancelled": "Cancelled"
+      },
+      "status": {
+        "active": "Active",
+        "paused": "Paused",
+        "cancelled": "Cancelled",
+        "pending": "Pending"
+      },
+      "frequency": {
+        "weekly": "Weekly",
+        "biweekly": "Bi-weekly",
+        "monthly": "Monthly"
+      },
+      "table": {
+        "customer": "Customer",
+        "product": "Product",
+        "frequency": "Frequency",
+        "nextDelivery": "Next Delivery",
+        "status": "Status",
+        "totalValue": "Total Value",
+        "actions": "Actions"
+      },
+      "filter": {
+        "all": "All Status"
+      }
+    },
+    "analytics": {
+      "title": "Analytics",
+      "subtitle": "Business insights and performance metrics",
+      "revenue": {
+        "title": "Revenue Analytics",
+        "totalRevenue": "Total Revenue",
+        "monthlyGrowth": "Monthly Growth",
+        "averageOrderValue": "Average Order Value"
+      },
+      "customers": {
+        "title": "Customer Analytics",
+        "newCustomers": "New Customers",
+        "customerRetention": "Customer Retention",
+        "lifetimeValue": "Lifetime Value"
+      },
+      "products": {
+        "title": "Product Performance",
+        "topProducts": "Top Selling Products",
+        "lowStock": "Low Stock Items",
+        "profitMargins": "Profit Margins"
+      },
+      "subscriptions": {
+        "title": "Subscription Metrics",
+        "activeSubscriptions": "Active Subscriptions",
+        "churnRate": "Churn Rate",
+        "averageLifetime": "Average Lifetime"
+      }
+    },
+    "reports": {
+      "title": "Reports",
+      "subtitle": "Generate and download business reports",
+      "generate": "Generate Report",
+      "download": "Download",
+      "dateRange": "Date Range",
+      "reportType": "Report Type",
+      "types": {
+        "sales": "Sales Report",
+        "customers": "Customer Report",
+        "products": "Product Report",
+        "subscriptions": "Subscription Report",
+        "inventory": "Inventory Report"
+      },
+      "filters": {
+        "lastWeek": "Last Week",
+        "lastMonth": "Last Month",
+        "lastQuarter": "Last Quarter",
+        "lastYear": "Last Year",
+        "custom": "Custom Range"
+      }
+    },
+    "marketing": {
+      "title": "Marketing",
+      "subtitle": "Manage campaigns and customer communications",
+      "campaigns": {
+        "title": "Marketing Campaigns",
+        "create": "Create Campaign",
+        "active": "Active Campaigns",
+        "draft": "Draft Campaigns",
+        "completed": "Completed Campaigns"
+      },
+      "email": {
+        "title": "Email Marketing",
+        "templates": "Email Templates",
+        "newsletters": "Newsletters",
+        "promotions": "Promotions"
+      },
+      "discounts": {
+        "title": "Discounts & Coupons",
+        "create": "Create Coupon",
+        "active": "Active Coupons",
+        "expired": "Expired Coupons"
+      }
+    },
+    "notifications": {
+      "title": "Notifications",
+      "subtitle": "System notifications and alerts",
+      "markAllRead": "Mark All as Read",
+      "types": {
+        "order": "New Order",
+        "customer": "New Customer",
+        "inventory": "Low Inventory",
+        "system": "System Alert"
+      },
+      "settings": {
+        "title": "Notification Settings",
+        "email": "Email Notifications",
+        "push": "Push Notifications",
+        "sms": "SMS Notifications"
+      }
+    },
+    "settings": {
+      "title": "Settings",
+      "subtitle": "System configuration and preferences",
+      "general": {
+        "title": "General Settings",
+        "siteName": "Site Name",
+        "siteDescription": "Site Description",
+        "currency": "Currency",
+        "timezone": "Timezone",
+        "language": "Default Language"
+      },
+      "shipping": {
+        "title": "Shipping Settings",
+        "freeShippingThreshold": "Free Shipping Threshold",
+        "shippingRates": "Shipping Rates",
+        "deliveryAreas": "Delivery Areas"
+      },
+      "payments": {
+        "title": "Payment Settings",
+        "paymentMethods": "Payment Methods",
+        "taxSettings": "Tax Settings",
+        "invoiceSettings": "Invoice Settings"
+      },
+      "notifications": {
+        "title": "Notification Settings",
+        "orderNotifications": "Order Notifications",
+        "customerNotifications": "Customer Notifications",
+        "systemAlerts": "System Alerts"
+      }
+    }
   }
 }
