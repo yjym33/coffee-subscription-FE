@@ -1,4 +1,9 @@
 "use client";
+/**
+ * 카탈로그 페이지
+ * - 확장된 제품 목록(로스트 레벨 부여)에 대해 필터/정렬/장바구니 담기 기능 제공
+ * - 필터 파이프라인: 상태 → 조건별 필터 → 가격대 필터 → 정렬
+ */
 
 import { useState } from "react";
 import Image from "next/image";

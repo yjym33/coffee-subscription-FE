@@ -1,4 +1,9 @@
 import type React from "react";
+/**
+ * 앱 전역 레이아웃(App Shell)
+ * - 전역 스타일(`app/globals.css`), 폰트, 헤더/푸터, 테마/쿼리 프로바이더를 구성합니다.
+ * - 모든 페이지는 여기서 제공하는 컨텍스트(React Query, Theme)를 공유합니다.
+ */
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/layout/header";

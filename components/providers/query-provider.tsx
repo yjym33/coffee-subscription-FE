@@ -6,15 +6,17 @@ import { useState } from "react";
 
 export function QueryProvider({ children }: { children: React.ReactNode }) {
   const [queryClient] = useState(
-    () => new QueryClient({
-      defaultOptions: {
-        queries: {
-          retry: 1,
-          refetchOnWindowFocus: false,
-          staleTime: 5 * 60 * 1000, // 5 minutes
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: {
+            retry: 1,
+            refetchOnWindowFocus: false,
+            // 자주 변하지 않는 데이터는 staleTime을 길게 유지해 네트워크 비용을 줄입니다.
+            staleTime: 5 * 60 * 1000, // 5 minutes
+          },
         },
-      },
-    })
+      })
   );
 
   return (

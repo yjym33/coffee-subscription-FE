@@ -1,4 +1,9 @@
 "use client";
+/**
+ * Admin > Customers 페이지
+ * - 목 고객 데이터를 기반으로 필터/검색/상세 보기 UI를 제공합니다.
+ * - 실제 서버 연동 시, 필터링/정렬은 서버 쿼리 파라미터로 위임하는 것을 권장합니다.
+ */
 
 import { useState } from "react";
 import { AdminLayout } from "@/components/admin/admin-layout";

@@ -25,18 +25,20 @@ export const useAuthStore = create<AuthState>()(
       isAuthenticated: false,
       isLoading: false,
 
+      // 실제 API 연동 전까지 목 로그인 로직
+      // - 이메일에 'admin' 포함 시 관리자 플래그 설정
       login: async (email: string, password: string) => {
         set({ isLoading: true });
         try {
           // Mock login API call
-          await new Promise(resolve => setTimeout(resolve, 1000));
-          
+          await new Promise((resolve) => setTimeout(resolve, 1000));
+
           // Mock user data based on email
           const mockUser: User = {
             id: "1",
             email,
-            name: email.split('@')[0],
-            isAdmin: email.includes('admin')
+            name: email.split("@")[0],
+            isAdmin: email.includes("admin"),
           };
 
           set({
@@ -70,7 +72,12 @@ export const useAuthStore = create<AuthState>()(
     }),
     {
       name: "auth-storage",
-      storage: createJSONStorage(() => localStorage),
+      // SSR 안전한 localStorage 접근
+      storage: createJSONStorage(() =>
+        typeof window !== "undefined"
+          ? localStorage
+          : (undefined as unknown as Storage)
+      ),
       partialize: (state) => ({
         user: state.user,
         isAuthenticated: state.isAuthenticated,
