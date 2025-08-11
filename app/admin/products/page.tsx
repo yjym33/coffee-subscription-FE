@@ -124,7 +124,9 @@ export default function AdminProducts() {
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<any>(null);
+  const [productToDelete, setProductToDelete] = useState<any>(null);
 
   const [newProduct, setNewProduct] = useState({
     name: "",
@@ -146,7 +148,22 @@ export default function AdminProducts() {
   });
 
   const handleAddProduct = () => {
-    // TODO: Implement add product API call
+    // Add new product to the list
+    const newId = (products.length + 1).toString();
+    const productData = {
+      id: newId,
+      name: newProduct.name,
+      nameKo: newProduct.nameKo,
+      category: newProduct.category,
+      price: parseInt(newProduct.price),
+      stock: parseInt(newProduct.stock),
+      roastLevel: newProduct.roastLevel,
+      description: newProduct.description,
+      status: parseInt(newProduct.stock) > 0 ? "active" : "out_of_stock",
+      image: "/coffee-placeholder.jpg",
+    };
+
+    setProducts([...products, productData]);
     setIsAddDialogOpen(false);
     setNewProduct({
       name: "",
@@ -164,115 +181,160 @@ export default function AdminProducts() {
     setIsEditDialogOpen(true);
   };
 
-  const handleDeleteProduct = (productId: string) => {
-    setProducts(products.filter((p) => p.id !== productId));
+  const handleSaveEdit = () => {
+    if (selectedProduct) {
+      setProducts(
+        products.map((p) => (p.id === selectedProduct.id ? selectedProduct : p))
+      );
+    }
+    setIsEditDialogOpen(false);
+    setSelectedProduct(null);
   };
 
-  const ProductForm = ({ product, onSave, title }: any) => (
-    <div className="grid gap-4 py-4">
-      <div className="grid grid-cols-2 gap-4">
-        <div className="grid gap-2">
-          <Label htmlFor="name">
-            {t("admin.products.form.name", language)}
-          </Label>
-          <Input
-            id="name"
-            defaultValue={product?.name || ""}
-            placeholder={t("admin.products.form.namePlaceholder", language)}
-          />
-        </div>
-        <div className="grid gap-2">
-          <Label htmlFor="nameKo">
-            {t("admin.products.form.nameKo", language)}
-          </Label>
-          <Input
-            id="nameKo"
-            defaultValue={product?.nameKo || ""}
-            placeholder={t("admin.products.form.nameKoPlaceholder", language)}
-          />
-        </div>
-      </div>
+  const handleDeleteClick = (product: any) => {
+    setProductToDelete(product);
+    setIsDeleteDialogOpen(true);
+  };
 
-      <div className="grid grid-cols-2 gap-4">
-        <div className="grid gap-2">
-          <Label htmlFor="category">
-            {t("admin.products.form.category", language)}
-          </Label>
-          <Select defaultValue={product?.category || ""}>
-            <SelectTrigger>
-              <SelectValue
-                placeholder={t("admin.products.form.selectCategory", language)}
-              />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="Single Origin">Single Origin</SelectItem>
-              <SelectItem value="Blend">Blend</SelectItem>
-              <SelectItem value="Decaf">Decaf</SelectItem>
-              <SelectItem value="Espresso">Espresso</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-        <div className="grid gap-2">
-          <Label htmlFor="roastLevel">
-            {t("admin.products.form.roastLevel", language)}
-          </Label>
-          <Select defaultValue={product?.roastLevel || ""}>
-            <SelectTrigger>
-              <SelectValue
-                placeholder={t("admin.products.form.selectRoast", language)}
-              />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="Light">Light</SelectItem>
-              <SelectItem value="Medium">Medium</SelectItem>
-              <SelectItem value="Medium-Dark">Medium-Dark</SelectItem>
-              <SelectItem value="Dark">Dark</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-      </div>
+  const handleConfirmDelete = () => {
+    if (productToDelete) {
+      setProducts(products.filter((p) => p.id !== productToDelete.id));
+    }
+    setIsDeleteDialogOpen(false);
+    setProductToDelete(null);
+  };
 
-      <div className="grid grid-cols-2 gap-4">
+  const ProductForm = ({ product, isEdit = false }: any) => {
+    const formData = isEdit ? selectedProduct : newProduct;
+
+    const updateField = (field: string, value: any) => {
+      if (isEdit) {
+        setSelectedProduct({ ...selectedProduct, [field]: value });
+      } else {
+        setNewProduct({ ...newProduct, [field]: value });
+      }
+    };
+
+    return (
+      <div className="grid gap-4 py-4">
+        <div className="grid grid-cols-2 gap-4">
+          <div className="grid gap-2">
+            <Label htmlFor="name">
+              {t("admin.products.form.name", language)}
+            </Label>
+            <Input
+              id="name"
+              value={isEdit ? formData?.name || "" : formData.name}
+              onChange={(e) => updateField("name", e.target.value)}
+              placeholder={t("admin.products.form.namePlaceholder", language)}
+            />
+          </div>
+          <div className="grid gap-2">
+            <Label htmlFor="nameKo">
+              {t("admin.products.form.nameKo", language)}
+            </Label>
+            <Input
+              id="nameKo"
+              value={isEdit ? formData?.nameKo || "" : formData.nameKo}
+              onChange={(e) => updateField("nameKo", e.target.value)}
+              placeholder={t("admin.products.form.nameKoPlaceholder", language)}
+            />
+          </div>
+        </div>
+
+        <div className="grid grid-cols-2 gap-4">
+          <div className="grid gap-2">
+            <Label htmlFor="category">
+              {t("admin.products.form.category", language)}
+            </Label>
+            <Select
+              value={isEdit ? formData?.category || "" : formData.category}
+              onValueChange={(value) => updateField("category", value)}
+            >
+              <SelectTrigger>
+                <SelectValue
+                  placeholder={t(
+                    "admin.products.form.selectCategory",
+                    language
+                  )}
+                />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="Single Origin">Single Origin</SelectItem>
+                <SelectItem value="Blend">Blend</SelectItem>
+                <SelectItem value="Decaf">Decaf</SelectItem>
+                <SelectItem value="Espresso">Espresso</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          <div className="grid gap-2">
+            <Label htmlFor="roastLevel">
+              {t("admin.products.form.roastLevel", language)}
+            </Label>
+            <Select
+              value={isEdit ? formData?.roastLevel || "" : formData.roastLevel}
+              onValueChange={(value) => updateField("roastLevel", value)}
+            >
+              <SelectTrigger>
+                <SelectValue
+                  placeholder={t("admin.products.form.selectRoast", language)}
+                />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="Light">Light</SelectItem>
+                <SelectItem value="Medium">Medium</SelectItem>
+                <SelectItem value="Medium-Dark">Medium-Dark</SelectItem>
+                <SelectItem value="Dark">Dark</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-2 gap-4">
+          <div className="grid gap-2">
+            <Label htmlFor="price">
+              {t("admin.products.form.price", language)}
+            </Label>
+            <Input
+              id="price"
+              type="number"
+              value={isEdit ? formData?.price || "" : formData.price}
+              onChange={(e) => updateField("price", e.target.value)}
+              placeholder="35000"
+            />
+          </div>
+          <div className="grid gap-2">
+            <Label htmlFor="stock">
+              {t("admin.products.form.stock", language)}
+            </Label>
+            <Input
+              id="stock"
+              type="number"
+              value={isEdit ? formData?.stock || "" : formData.stock}
+              onChange={(e) => updateField("stock", e.target.value)}
+              placeholder="50"
+            />
+          </div>
+        </div>
+
         <div className="grid gap-2">
-          <Label htmlFor="price">
-            {t("admin.products.form.price", language)}
+          <Label htmlFor="description">
+            {t("admin.products.form.description", language)}
           </Label>
-          <Input
-            id="price"
-            type="number"
-            defaultValue={product?.price || ""}
-            placeholder="35000"
+          <Textarea
+            id="description"
+            value={isEdit ? formData?.description || "" : formData.description}
+            onChange={(e) => updateField("description", e.target.value)}
+            placeholder={t(
+              "admin.products.form.descriptionPlaceholder",
+              language
+            )}
+            rows={3}
           />
         </div>
-        <div className="grid gap-2">
-          <Label htmlFor="stock">
-            {t("admin.products.form.stock", language)}
-          </Label>
-          <Input
-            id="stock"
-            type="number"
-            defaultValue={product?.stock || ""}
-            placeholder="50"
-          />
-        </div>
       </div>
-
-      <div className="grid gap-2">
-        <Label htmlFor="description">
-          {t("admin.products.form.description", language)}
-        </Label>
-        <Textarea
-          id="description"
-          defaultValue={product?.description || ""}
-          placeholder={t(
-            "admin.products.form.descriptionPlaceholder",
-            language
-          )}
-          rows={3}
-        />
-      </div>
-    </div>
-  );
+    );
+  };
 
   return (
     <AdminLayout>
@@ -303,11 +365,7 @@ export default function AdminProducts() {
                   {t("admin.products.addProductDescription", language)}
                 </DialogDescription>
               </DialogHeader>
-              <ProductForm
-                product={null}
-                onSave={handleAddProduct}
-                title={t("admin.products.addProduct", language)}
-              />
+              <ProductForm product={null} isEdit={false} />
               <DialogFooter>
                 <Button
                   variant="outline"
@@ -420,7 +478,7 @@ export default function AdminProducts() {
                       <Button
                         variant="ghost"
                         size="sm"
-                        onClick={() => handleDeleteProduct(product.id)}
+                        onClick={() => handleDeleteClick(product)}
                       >
                         <Trash2 className="h-4 w-4" />
                       </Button>
@@ -443,25 +501,51 @@ export default function AdminProducts() {
                 {t("admin.products.editProductDescription", language)}
               </DialogDescription>
             </DialogHeader>
-            <ProductForm
-              product={selectedProduct}
-              onSave={() => setIsEditDialogOpen(false)}
-              title={t("admin.products.editProduct", language)}
-            />
+            <ProductForm product={selectedProduct} isEdit={true} />
             <DialogFooter>
               <Button
                 variant="outline"
-                onClick={() => setIsEditDialogOpen(false)}
+                onClick={() => {
+                  setIsEditDialogOpen(false);
+                  setSelectedProduct(null);
+                }}
               >
                 {t("admin.common.cancel", language)}
               </Button>
-              <Button onClick={() => setIsEditDialogOpen(false)}>
+              <Button onClick={handleSaveEdit}>
                 {t("admin.common.save", language)}
               </Button>
             </DialogFooter>
           </DialogContent>
         </Dialog>
       </div>
+      {/* Delete Confirmation Dialog */}
+      <Dialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
+        <DialogContent className="sm:max-w-[425px]">
+          <DialogHeader>
+            <DialogTitle>
+              {t("admin.products.deleteProduct", language)}
+            </DialogTitle>
+            <DialogDescription>
+              {t("admin.products.deleteProductDescription", language)}
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <Button
+              variant="outline"
+              onClick={() => {
+                setIsDeleteDialogOpen(false);
+                setProductToDelete(null);
+              }}
+            >
+              {t("admin.common.cancel", language)}
+            </Button>
+            <Button variant="destructive" onClick={handleConfirmDelete}>
+              {t("admin.products.deleteProduct", language)}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </AdminLayout>
   );
 }

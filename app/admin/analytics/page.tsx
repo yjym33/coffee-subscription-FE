@@ -4,6 +4,9 @@ import { AdminLayout } from "@/components/admin/admin-layout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Progress } from "@/components/ui/progress";
+import { SimpleBarChart } from "@/components/admin/charts/simple-bar-chart";
+import { SimpleLineChart } from "@/components/admin/charts/simple-line-chart";
+import { SimplePieChart } from "@/components/admin/charts/simple-pie-chart";
 import { useLanguage } from "@/hooks/use-language-store";
 import { t } from "@/lib/translations";
 import {
@@ -173,15 +176,20 @@ export default function AdminAnalytics() {
               </Card>
             </div>
 
-            {/* Revenue Chart Placeholder */}
+            {/* Revenue Chart */}
             <Card>
               <CardHeader>
                 <CardTitle>Monthly Revenue Trend</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="h-[300px] flex items-center justify-center text-muted-foreground border-2 border-dashed border-gray-300 rounded">
-                  Revenue chart visualization will be implemented here
-                </div>
+                <SimpleLineChart 
+                  data={analyticsData.revenue.monthlyData.map(item => ({
+                    label: item.month,
+                    value: item.value
+                  }))}
+                  height={300}
+                  color="#3b82f6"
+                />
               </CardContent>
             </Card>
           </TabsContent>
@@ -261,43 +269,28 @@ export default function AdminAnalytics() {
                 <CardTitle>Customer Segments</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between">
-                    <span>New Customers</span>
-                    <div className="flex items-center gap-2">
-                      <Progress
-                        value={analyticsData.customers.segments.new}
-                        className="w-20"
-                      />
-                      <span className="text-sm font-medium">
-                        {analyticsData.customers.segments.new}%
-                      </span>
-                    </div>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span>Returning Customers</span>
-                    <div className="flex items-center gap-2">
-                      <Progress
-                        value={analyticsData.customers.segments.returning}
-                        className="w-20"
-                      />
-                      <span className="text-sm font-medium">
-                        {analyticsData.customers.segments.returning}%
-                      </span>
-                    </div>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span>VIP Customers</span>
-                    <div className="flex items-center gap-2">
-                      <Progress
-                        value={analyticsData.customers.segments.vip}
-                        className="w-20"
-                      />
-                      <span className="text-sm font-medium">
-                        {analyticsData.customers.segments.vip}%
-                      </span>
-                    </div>
-                  </div>
+                <div className="flex justify-center">
+                  <SimplePieChart 
+                    data={[
+                      { 
+                        label: "New Customers", 
+                        value: analyticsData.customers.segments.new,
+                        color: "#3b82f6"
+                      },
+                      { 
+                        label: "Returning Customers", 
+                        value: analyticsData.customers.segments.returning,
+                        color: "#10b981"
+                      },
+                      { 
+                        label: "VIP Customers", 
+                        value: analyticsData.customers.segments.vip,
+                        color: "#f59e0b"
+                      }
+                    ]}
+                    size={250}
+                    showPercentages={true}
+                  />
                 </div>
               </CardContent>
             </Card>
@@ -313,35 +306,15 @@ export default function AdminAnalytics() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="space-y-4">
-                    {analyticsData.products.topProducts.map(
-                      (product, index) => (
-                        <div
-                          key={product.name}
-                          className="flex items-center justify-between"
-                        >
-                          <div className="flex items-center gap-2">
-                            <div className="w-8 h-8 bg-amber-100 rounded-full flex items-center justify-center">
-                              <span className="text-sm font-medium text-amber-600">
-                                #{index + 1}
-                              </span>
-                            </div>
-                            <div>
-                              <div className="font-medium">{product.name}</div>
-                              <div className="text-sm text-muted-foreground">
-                                {product.sales} units sold
-                              </div>
-                            </div>
-                          </div>
-                          <div className="text-right">
-                            <div className="font-medium">
-                              {formatCurrency(product.revenue)}
-                            </div>
-                          </div>
-                        </div>
-                      )
-                    )}
-                  </div>
+                  <SimpleBarChart 
+                    data={analyticsData.products.topProducts.map(product => ({
+                      label: product.name.split(' ')[0], // Abbreviated names for chart
+                      value: product.revenue
+                    }))}
+                    height={280}
+                    color="#f59e0b"
+                    showValues={true}
+                  />
                 </CardContent>
               </Card>
 

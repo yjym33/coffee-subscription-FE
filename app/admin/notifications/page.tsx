@@ -1,13 +1,21 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { AdminLayout } from "@/components/admin/admin-layout";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { useLanguage } from "@/hooks/use-language-store";
 import { t } from "@/lib/translations";
 import {
@@ -22,6 +30,8 @@ import {
   MessageSquare,
   Settings,
   X,
+  Search,
+  Filter,
 } from "lucide-react";
 
 // Mock notifications data
@@ -108,6 +118,35 @@ export default function AdminNotifications() {
   const { language } = useLanguage();
   const [notificationList, setNotificationList] = useState(notifications);
   const [settings, setSettings] = useState(notificationSettings);
+  
+  // Filter and search states
+  const [searchTerm, setSearchTerm] = useState("");
+  const [typeFilter, setTypeFilter] = useState<string>("all");
+  const [priorityFilter, setPriorityFilter] = useState<string>("all");
+  const [readFilter, setReadFilter] = useState<string>("all");
+
+  // Filtered notifications
+  const filteredNotifications = useMemo(() => {
+    return notificationList.filter(notification => {
+      // Search filter
+      const matchesSearch = searchTerm === "" || 
+        notification.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        notification.message.toLowerCase().includes(searchTerm.toLowerCase());
+
+      // Type filter
+      const matchesType = typeFilter === "all" || notification.type === typeFilter;
+
+      // Priority filter
+      const matchesPriority = priorityFilter === "all" || notification.priority === priorityFilter;
+
+      // Read status filter
+      const matchesRead = readFilter === "all" || 
+        (readFilter === "read" && notification.read) ||
+        (readFilter === "unread" && !notification.read);
+
+      return matchesSearch && matchesType && matchesPriority && matchesRead;
+    });
+  }, [notificationList, searchTerm, typeFilter, priorityFilter, readFilter]);
 
   const getNotificationIcon = (type: string) => {
     const icons = {
@@ -189,8 +228,13 @@ export default function AdminNotifications() {
     }));
   };
 
-  const unreadCount = notificationList.filter(n => !n.read).length;
-  const highPriorityCount = notificationList.filter(n => n.priority === "high" && !n.read).length;
+  const unreadCount = filteredNotifications.filter(n => !n.read).length;
+  const highPriorityCount = filteredNotifications.filter(n => n.priority === "high" && !n.read).length;
+  const todayCount = filteredNotifications.filter(n => {
+    const notificationDate = new Date(n.timestamp);
+    const today = new Date();
+    return notificationDate.toDateString() === today.toDateString();
+  }).length;
 
   return (
     <AdminLayout>
@@ -210,6 +254,85 @@ export default function AdminNotifications() {
             {t("admin.notifications.markAllRead", language)}
           </Button>
         </div>
+
+        {/* Search and Filters */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Filter className="h-5 w-5" />
+              Filters & Search
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="grid gap-4 md:grid-cols-5">
+              <div className="space-y-2">
+                <Label htmlFor="search">Search</Label>
+                <div className="relative">
+                  <Search className="absolute left-2 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                  <Input
+                    id="search"
+                    placeholder="Search notifications..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="pl-8"
+                  />
+                </div>
+              </div>
+              
+              <div className="space-y-2">
+                <Label>Type</Label>
+                <Select value={typeFilter} onValueChange={setTypeFilter}>
+                  <SelectTrigger>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">All Types</SelectItem>
+                    <SelectItem value="order">Orders</SelectItem>
+                    <SelectItem value="customer">Customers</SelectItem>
+                    <SelectItem value="inventory">Inventory</SelectItem>
+                    <SelectItem value="system">System</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              
+              <div className="space-y-2">
+                <Label>Priority</Label>
+                <Select value={priorityFilter} onValueChange={setPriorityFilter}>
+                  <SelectTrigger>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">All Priorities</SelectItem>
+                    <SelectItem value="high">High</SelectItem>
+                    <SelectItem value="normal">Normal</SelectItem>
+                    <SelectItem value="low">Low</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              
+              <div className="space-y-2">
+                <Label>Status</Label>
+                <Select value={readFilter} onValueChange={setReadFilter}>
+                  <SelectTrigger>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">All</SelectItem>
+                    <SelectItem value="unread">Unread</SelectItem>
+                    <SelectItem value="read">Read</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              
+              <div className="space-y-2">
+                <Label>Results</Label>
+                <div className="text-sm text-muted-foreground pt-2">
+                  {filteredNotifications.length} of {notificationList.length} notifications
+                </div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
 
         {/* Notification Stats */}
         <div className="grid gap-4 md:grid-cols-4">
@@ -239,13 +362,7 @@ export default function AdminNotifications() {
               <Bell className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">
-                {notificationList.filter(n => {
-                  const notificationDate = new Date(n.timestamp);
-                  const today = new Date();
-                  return notificationDate.toDateString() === today.toDateString();
-                }).length}
-              </div>
+              <div className="text-2xl font-bold">{todayCount}</div>
             </CardContent>
           </Card>
 
@@ -255,7 +372,7 @@ export default function AdminNotifications() {
               <Bell className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{notificationList.length}</div>
+              <div className="text-2xl font-bold">{filteredNotifications.length}</div>
             </CardContent>
           </Card>
         </div>
@@ -268,7 +385,12 @@ export default function AdminNotifications() {
             </CardHeader>
             <CardContent>
               <div className="space-y-4 max-h-96 overflow-y-auto">
-                {notificationList.map((notification) => {
+                {filteredNotifications.length === 0 ? (
+                  <div className="text-center text-muted-foreground py-8">
+                    No notifications match your current filters.
+                  </div>
+                ) : (
+                  filteredNotifications.map((notification) => {
                   const Icon = getNotificationIcon(notification.type);
                   return (
                     <div
@@ -330,7 +452,7 @@ export default function AdminNotifications() {
                       </div>
                     </div>
                   );
-                })}
+                }))}
               </div>
             </CardContent>
           </Card>

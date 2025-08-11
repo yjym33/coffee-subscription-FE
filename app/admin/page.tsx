@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { AdminLayout } from "@/components/admin/admin-layout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -17,6 +18,7 @@ import {
   ArrowUpRight,
   ArrowDownRight,
   MoreHorizontal,
+  RefreshCw,
 } from "lucide-react";
 
 // Mock data for dashboard
@@ -137,6 +139,56 @@ function getStatusBadge(status: string, language: Language) {
 
 export default function AdminDashboard() {
   const { language } = useLanguage();
+  const [stats, setStats] = useState(dashboardStats);
+  const [lastUpdated, setLastUpdated] = useState(new Date());
+  const [isRefreshing, setIsRefreshing] = useState(false);
+
+  // Auto-refresh every 30 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      refreshData();
+    }, 30000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const refreshData = () => {
+    setIsRefreshing(true);
+    
+    // Simulate API call with random data changes
+    setTimeout(() => {
+      const randomChange = () => Math.floor(Math.random() * 10) - 5; // -5 to +5
+      const randomPercentageChange = () => (Math.random() * 4 - 2).toFixed(1); // -2.0 to +2.0
+      
+      setStats(prevStats => ({
+        revenue: {
+          ...prevStats.revenue,
+          total: `₩${(2450000 + randomChange() * 10000).toLocaleString()}`,
+          change: `${randomPercentageChange()}%`,
+          trend: Math.random() > 0.3 ? "up" : "down"
+        },
+        customers: {
+          ...prevStats.customers,
+          total: `${1234 + randomChange()}`,
+          change: `${randomPercentageChange()}%`,
+        },
+        products: {
+          ...prevStats.products,
+          total: `${87 + Math.floor(randomChange() / 2)}`,
+          change: `+${Math.max(0, Math.floor(Math.random() * 3))}`,
+        },
+        orders: {
+          ...prevStats.orders,
+          total: `${156 + randomChange()}`,
+          change: `${randomPercentageChange()}%`,
+          trend: Math.random() > 0.4 ? "up" : "down"
+        }
+      }));
+      
+      setLastUpdated(new Date());
+      setIsRefreshing(false);
+    }, 1000);
+  };
 
   return (
     <AdminLayout>
@@ -150,11 +202,35 @@ export default function AdminDashboard() {
             <p className="text-muted-foreground">
               {t("admin.dashboard.subtitle", language)}
             </p>
+            <div className="flex items-center gap-4 mt-2 text-sm text-muted-foreground">
+              <span>Last updated: {lastUpdated.toLocaleTimeString()}</span>
+              <span>•</span>
+              <span>Auto-refresh: 30s</span>
+              {isRefreshing && (
+                <>
+                  <span>•</span>
+                  <span className="flex items-center gap-1">
+                    <RefreshCw className="h-3 w-3 animate-spin" />
+                    Updating...
+                  </span>
+                </>
+              )}
+            </div>
           </div>
-          <Button>
-            <Calendar className="mr-2 h-4 w-4" />
-            {t("admin.dashboard.viewReports", language)}
-          </Button>
+          <div className="flex gap-2">
+            <Button 
+              variant="outline" 
+              onClick={refreshData}
+              disabled={isRefreshing}
+            >
+              <RefreshCw className={`mr-2 h-4 w-4 ${isRefreshing ? 'animate-spin' : ''}`} />
+              Refresh
+            </Button>
+            <Button>
+              <Calendar className="mr-2 h-4 w-4" />
+              {t("admin.dashboard.viewReports", language)}
+            </Button>
+          </div>
         </div>
 
         {/* Stats Cards */}
@@ -168,22 +244,22 @@ export default function AdminDashboard() {
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">
-                {dashboardStats.revenue.total}
+                {stats.revenue.total}
               </div>
               <div className="flex items-center text-xs text-muted-foreground">
-                {dashboardStats.revenue.trend === "up" ? (
+                {stats.revenue.trend === "up" ? (
                   <ArrowUpRight className="mr-1 h-3 w-3 text-green-500" />
                 ) : (
                   <ArrowDownRight className="mr-1 h-3 w-3 text-red-500" />
                 )}
                 <span
                   className={
-                    dashboardStats.revenue.trend === "up"
+                    stats.revenue.trend === "up"
                       ? "text-green-500"
                       : "text-red-500"
                   }
                 >
-                  {dashboardStats.revenue.change}
+                  {stats.revenue.change}
                 </span>
                 <span className="ml-1">
                   {t("admin.dashboard.stats.fromLastMonth", language)}
@@ -201,12 +277,12 @@ export default function AdminDashboard() {
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">
-                {dashboardStats.customers.total}
+                {stats.customers.total}
               </div>
               <div className="flex items-center text-xs text-muted-foreground">
                 <ArrowUpRight className="mr-1 h-3 w-3 text-green-500" />
                 <span className="text-green-500">
-                  {dashboardStats.customers.change}
+                  {stats.customers.change}
                 </span>
                 <span className="ml-1">
                   {t("admin.dashboard.stats.fromLastMonth", language)}
@@ -224,12 +300,12 @@ export default function AdminDashboard() {
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">
-                {dashboardStats.products.total}
+                {stats.products.total}
               </div>
               <div className="flex items-center text-xs text-muted-foreground">
                 <ArrowUpRight className="mr-1 h-3 w-3 text-green-500" />
                 <span className="text-green-500">
-                  {dashboardStats.products.change}
+                  {stats.products.change}
                 </span>
                 <span className="ml-1">
                   {t("admin.dashboard.stats.thisWeek", language)}
@@ -247,12 +323,16 @@ export default function AdminDashboard() {
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">
-                {dashboardStats.orders.total}
+                {stats.orders.total}
               </div>
               <div className="flex items-center text-xs text-muted-foreground">
-                <ArrowDownRight className="mr-1 h-3 w-3 text-red-500" />
-                <span className="text-red-500">
-                  {dashboardStats.orders.change}
+                {stats.orders.trend === "up" ? (
+                  <ArrowUpRight className="mr-1 h-3 w-3 text-green-500" />
+                ) : (
+                  <ArrowDownRight className="mr-1 h-3 w-3 text-red-500" />
+                )}
+                <span className={stats.orders.trend === "up" ? "text-green-500" : "text-red-500"}>
+                  {stats.orders.change}
                 </span>
                 <span className="ml-1">
                   {t("admin.dashboard.stats.fromLastWeek", language)}
