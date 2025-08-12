@@ -1,0 +1,53 @@
+export const mockProducts = [
+  {
+    id: "1",
+    name: "Ethiopian Yirgacheffe",
+    nameKo: "에티오피아 예가체프",
+    category: "Single Origin",
+    price: 35000,
+    stock: 45,
+    status: "active",
+    roastLevel: "Medium",
+    description: "Bright and floral with citrus notes",
+    image: "/coffee-1.jpg",
+  },
+  {
+    id: "2",
+    name: "Colombian Huila",
+    nameKo: "콜롬비아 우일라",
+    category: "Single Origin",
+    price: 42000,
+    stock: 23,
+    status: "active",
+    roastLevel: "Medium-Dark",
+    description: "Rich chocolate and caramel flavors",
+    image: "/coffee-2.jpg",
+  },
+  {
+    id: "3",
+    name: "Brazilian Santos",
+    nameKo: "브라질 산토스",
+    category: "Single Origin",
+    price: 38000,
+    stock: 0,
+    status: "out_of_stock",
+    roastLevel: "Dark",
+    description: "Nutty and smooth with low acidity",
+    image: "/coffee-3.jpg",
+  },
+  {
+    id: "4",
+    name: "House Blend",
+    nameKo: "하우스 블렌드",
+    category: "Blend",
+    price: 32000,
+    stock: 67,
+    status: "active",
+    roastLevel: "Medium",
+    description: "Perfect balance of flavor and aroma",
+    image: "/coffee-4.jpg",
+  },
+] as const;
+
+
+
