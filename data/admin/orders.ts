@@ -1,4 +1,30 @@
-export const mockOrders = [
+export type OrderStatus =
+  | "pending"
+  | "processing"
+  | "shipped"
+  | "completed"
+  | "cancelled";
+
+export type PaymentStatus = "pending" | "paid" | "refunded" | "failed";
+
+export interface Order {
+  id: string;
+  customer: {
+    name: string;
+    email: string;
+    phone: string;
+    address: string;
+  };
+  items: { name: string; nameKo: string; quantity: number; price: number }[];
+  total: number;
+  status: OrderStatus;
+  paymentStatus: PaymentStatus;
+  date: string;
+  shippingDate: string | null;
+  trackingNumber: string | null;
+}
+
+export const mockOrders: Order[] = [
   {
     id: "ORD-001",
     customer: {
@@ -97,7 +123,4 @@ export const mockOrders = [
     shippingDate: null,
     trackingNumber: null,
   },
-] as const;
-
-
-
+];

@@ -9,17 +9,10 @@ import {
 } from "@/components/ui/dialog";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { t, type Language } from "@/lib/translations";
+import type { Order } from "@/data/admin/orders";
 import { Mail, Phone, MapPin } from "lucide-react";
 
-export interface OrderDetail {
-  id: string;
-  customer: { name: string; email: string; phone: string; address: string };
-  items: { name: string; nameKo: string; quantity: number; price: number }[];
-  total: number;
-  date: string;
-  shippingDate: string | null;
-  trackingNumber: string | null;
-}
+export type OrderDetail = Order;
 
 export function OrderDetailDialog({
   open,

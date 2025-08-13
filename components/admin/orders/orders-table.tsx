@@ -11,6 +11,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { t, type Language } from "@/lib/translations";
+import type { OrderStatus, PaymentStatus } from "@/data/admin/orders";
 import { Eye, Truck, Package, CheckCircle, XCircle, Clock } from "lucide-react";
 
 export interface OrderRow {
@@ -18,8 +19,8 @@ export interface OrderRow {
   customer: { name: string; email: string };
   items: { name: string; nameKo: string; quantity: number; price: number }[];
   total: number;
-  status: string;
-  paymentStatus: string;
+  status: OrderStatus;
+  paymentStatus: PaymentStatus;
   date: string;
 }
 
@@ -95,7 +96,7 @@ export function OrdersTable({
   orders: OrderRow[];
   language: Language;
   onView: (order: OrderRow) => void;
-  onStatusChange: (orderId: string, newStatus: string) => void;
+  onStatusChange: (orderId: string, newStatus: OrderStatus) => void;
 }) {
   const formatDate = (dateString: string) =>
     new Date(dateString).toLocaleDateString(
@@ -168,7 +169,9 @@ export function OrdersTable({
                   </Button>
                   <select
                     value={order.status}
-                    onChange={(e) => onStatusChange(order.id, e.target.value)}
+                    onChange={(e) =>
+                      onStatusChange(order.id, e.target.value as OrderStatus)
+                    }
                     className="w-[120px] h-8 rounded-md border border-input bg-background px-2 text-sm"
                   >
                     {[

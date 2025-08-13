@@ -11,16 +11,17 @@ import { OrdersFilters } from "@/components/admin/orders/orders-filters";
 import { OrdersTable } from "@/components/admin/orders/orders-table";
 import { OrderDetailDialog } from "@/components/admin/orders/order-detail-dialog";
 
-import { mockOrders } from "@/data/admin/orders";
+import { mockOrders, type Order, type OrderStatus } from "@/data/admin/orders";
+import type { OrderRow } from "@/components/admin/orders/orders-table";
 
 // 배지/테이블/필터/상세는 분리된 컴포넌트에서 처리합니다.
 
 export default function AdminOrders() {
   const { language } = useLanguage();
-  const [orders, setOrders] = useState([...mockOrders]);
+  const [orders, setOrders] = useState<Order[]>(mockOrders);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedStatus, setSelectedStatus] = useState("all");
-  const [selectedOrder, setSelectedOrder] = useState<any>(null);
+  const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
   const [isDetailDialogOpen, setIsDetailDialogOpen] = useState(false);
 
   const filteredOrders = orders.filter((order) => {
@@ -33,12 +34,13 @@ export default function AdminOrders() {
     return matchesSearch && matchesStatus;
   });
 
-  const handleViewOrder = (order: any) => {
-    setSelectedOrder(order);
+  const handleViewOrder = (order: OrderRow) => {
+    const fullOrder = orders.find((o) => o.id === order.id) ?? null;
+    setSelectedOrder(fullOrder);
     setIsDetailDialogOpen(true);
   };
 
-  const handleUpdateOrderStatus = (orderId: string, newStatus: string) => {
+  const handleUpdateOrderStatus = (orderId: string, newStatus: OrderStatus) => {
     setOrders(
       orders.map((order) =>
         order.id === orderId ? { ...order, status: newStatus } : order
@@ -142,9 +144,9 @@ export default function AdminOrders() {
 
         {/* Orders Table */}
         <OrdersTable
-          orders={filteredOrders as any}
+          orders={filteredOrders}
           language={language}
-          onView={(o) => handleViewOrder(o as any)}
+          onView={(o) => handleViewOrder(o)}
           onStatusChange={handleUpdateOrderStatus}
         />
 
@@ -152,7 +154,7 @@ export default function AdminOrders() {
         <OrderDetailDialog
           open={isDetailDialogOpen}
           onOpenChange={setIsDetailDialogOpen}
-          order={selectedOrder as any}
+          order={selectedOrder}
           language={language}
         />
       </div>
