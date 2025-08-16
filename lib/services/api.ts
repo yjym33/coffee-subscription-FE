@@ -30,13 +30,35 @@ api.interceptors.request.use(
 );
 
 // 공통 에러 처리 인터셉터 (401 시 세션 정리)
+// 리다이렉트는 호출하는 컴포넌트/페이지에서 처리하도록 이벤트로 분리
+const authErrorHandlers: (() => void)[] = [];
+
+export const onAuthError = (handler: () => void) => {
+  authErrorHandlers.push(handler);
+  return () => {
+    const index = authErrorHandlers.indexOf(handler);
+    if (index > -1) {
+      authErrorHandlers.splice(index, 1);
+    }
+  };
+};
+
 api.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error?.response?.status === 401 && isBrowser) {
+      // 로컬 세션 정리
       localStorage.removeItem("token");
       localStorage.removeItem("user");
-      window.location.href = "/login";
+
+      // 등록된 핸들러들에게 인증 에러 알림
+      authErrorHandlers.forEach((handler) => {
+        try {
+          handler();
+        } catch (e) {
+          console.error("Auth error handler failed:", e);
+        }
+      });
     }
     return Promise.reject(error);
   }

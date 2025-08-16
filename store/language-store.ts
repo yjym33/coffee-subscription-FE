@@ -16,7 +16,11 @@ export const useLanguageStore = create<LanguageState>()(
     }),
     {
       name: "language-storage",
-      storage: createJSONStorage(() => localStorage),
+      storage: createJSONStorage(() =>
+        typeof window !== "undefined"
+          ? localStorage
+          : (undefined as unknown as Storage)
+      ),
     }
   )
 );
