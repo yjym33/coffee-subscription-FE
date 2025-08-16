@@ -18,6 +18,7 @@ import { ModeToggle } from "../common/mode-toggle";
 import { LanguageToggle } from "../common/language-toggle";
 import { useLanguage } from "@/hooks/use-language-store";
 import { useCart } from "@/hooks/use-cart-store";
+import { useAuthStore } from "@/store/auth-store";
 import { t } from "@/lib/translations";
 
 export default function Header() {
@@ -25,6 +26,7 @@ export default function Header() {
   const pathname = usePathname();
   const { language } = useLanguage();
   const { getTotalItems } = useCart();
+  const { isAuthenticated, user, logout } = useAuthStore();
 
   const routes = [
     { href: "/", label: t("header.home", language) },
@@ -60,14 +62,38 @@ export default function Header() {
                   </Button>
                 ))}
                 <div className="flex flex-col gap-2 mt-4">
-                  <Button asChild variant="default" className="w-full">
-                    <Link href="/login">{t("header.signIn", language)}</Link>
-                  </Button>
-                  <Button asChild variant="outline" className="w-full">
-                    <Link href="/register">
-                      {t("header.createAccount", language)}
-                    </Link>
-                  </Button>
+                  {isAuthenticated ? (
+                    <>
+                      <div className="text-sm text-muted-foreground px-3 py-2">
+                        {t("header.welcome", language)} {user?.name}
+                      </div>
+                      <Button asChild variant="outline" className="w-full">
+                        <Link href="/my-account">
+                          {t("header.myAccount", language)}
+                        </Link>
+                      </Button>
+                      <Button
+                        variant="destructive"
+                        className="w-full"
+                        onClick={logout}
+                      >
+                        {t("header.signOut", language)}
+                      </Button>
+                    </>
+                  ) : (
+                    <>
+                      <Button asChild variant="default" className="w-full">
+                        <Link href="/login">
+                          {t("header.signIn", language)}
+                        </Link>
+                      </Button>
+                      <Button asChild variant="outline" className="w-full">
+                        <Link href="/register">
+                          {t("header.createAccount", language)}
+                        </Link>
+                      </Button>
+                    </>
+                  )}
                 </div>
               </div>
             </SheetContent>
@@ -120,24 +146,37 @@ export default function Header() {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuItem asChild>
-                <Link href="/login">{t("header.signIn", language)}</Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <Link href="/register">
-                  {t("header.createAccount", language)}
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <Link href="/my-account">
-                  {t("header.myAccount", language)}
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <Link href="/my-subscriptions">
-                  {t("header.mySubscriptions", language)}
-                </Link>
-              </DropdownMenuItem>
+              {isAuthenticated ? (
+                <>
+                  <div className="px-2 py-1.5 text-sm text-muted-foreground">
+                    {user?.name}
+                  </div>
+                  <DropdownMenuItem asChild>
+                    <Link href="/my-account">
+                      {t("header.myAccount", language)}
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link href="/my-subscriptions">
+                      {t("header.mySubscriptions", language)}
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={logout}>
+                    {t("header.signOut", language)}
+                  </DropdownMenuItem>
+                </>
+              ) : (
+                <>
+                  <DropdownMenuItem asChild>
+                    <Link href="/login">{t("header.signIn", language)}</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link href="/register">
+                      {t("header.createAccount", language)}
+                    </Link>
+                  </DropdownMenuItem>
+                </>
+              )}
             </DropdownMenuContent>
           </DropdownMenu>
         </div>

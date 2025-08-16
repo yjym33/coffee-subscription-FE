@@ -15,26 +15,37 @@ import { Label } from "@/components/ui/label";
 import Link from "next/link";
 import { Coffee } from "lucide-react";
 import { useLanguage } from "@/hooks/use-language-store";
+import { useAuthStore } from "@/store/auth-store";
 import { t } from "@/lib/translations";
 
 export default function LoginPage() {
   const router = useRouter();
   const { language } = useLanguage();
+  const { login, isLoading } = useAuthStore();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+  const [error, setError] = useState<string | null>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle login logic here
-    // TODO: Implement authentication logic
-    // Redirect to dashboard or home page on successful login
-    router.push("/");
+    setError(null);
+
+    try {
+      await login(formData.email, formData.password);
+      // 로그인 성공 시 홈페이지로 리다이렉트
+      router.push("/");
+    } catch (error) {
+      // 로그인 실패 시 에러 메시지 표시
+      setError(
+        error instanceof Error ? error.message : "로그인에 실패했습니다."
+      );
+    }
   };
 
   return (
@@ -50,6 +61,11 @@ export default function LoginPage() {
           <CardDescription>{t("login.description", language)}</CardDescription>
         </CardHeader>
         <CardContent>
+          {error && (
+            <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-md">
+              <p className="text-sm text-red-600">{error}</p>
+            </div>
+          )}
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="email">{t("login.email", language)}</Label>
@@ -84,8 +100,10 @@ export default function LoginPage() {
                 onChange={handleChange}
               />
             </div>
-            <Button type="submit" className="w-full">
-              {t("header.signIn", language)}
+            <Button type="submit" className="w-full" disabled={isLoading}>
+              {isLoading
+                ? t("login.signingIn", language) || "로그인 중..."
+                : t("header.signIn", language)}
             </Button>
             <div className="text-center text-sm">
               {t("login.noAccount", language)}{" "}

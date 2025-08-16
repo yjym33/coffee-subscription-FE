@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
+import { auth } from "@/lib/services/api";
 
 interface User {
   id: string;
@@ -25,24 +26,22 @@ export const useAuthStore = create<AuthState>()(
       isAuthenticated: false,
       isLoading: false,
 
-      // 실제 API 연동 전까지 목 로그인 로직
-      // - 이메일에 'admin' 포함 시 관리자 플래그 설정
       login: async (email: string, password: string) => {
         set({ isLoading: true });
         try {
-          // Mock login API call
-          await new Promise((resolve) => setTimeout(resolve, 1000));
+          // API를 통한 실제 로그인 호출
+          const response = await auth.signin({ email, password });
 
-          // Mock user data based on email
-          const mockUser: User = {
-            id: "1",
-            email,
-            name: email.split("@")[0],
-            isAdmin: email.includes("admin"),
+          // API 응답으로부터 사용자 정보 구성
+          const user: User = {
+            id: response.id || "1", // API 응답에 id가 없으면 기본값
+            email: response.email,
+            name: response.name,
+            isAdmin: email.includes("admin"), // 임시: 이메일에 admin이 포함되면 관리자
           };
 
           set({
-            user: mockUser,
+            user,
             isAuthenticated: true,
             isLoading: false,
           });
@@ -53,6 +52,10 @@ export const useAuthStore = create<AuthState>()(
       },
 
       logout: () => {
+        // API 로그아웃 호출
+        auth.signout();
+
+        // 스토어 상태 초기화
         set({
           user: null,
           isAuthenticated: false,

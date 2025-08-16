@@ -81,6 +81,7 @@ interface AuthSigninResponse {
   token: string;
   email: string;
   name: string;
+  id?: string;
 }
 
 // 인증 관련 간단 헬퍼
@@ -90,26 +91,24 @@ export const auth = {
     return response.data;
   },
 
-  signin: async (data: AuthSigninPayload) => {
+  signin: async (data: AuthSigninPayload): Promise<AuthSigninResponse> => {
     const response = await api.post("/auth/signin", data);
-    if (isBrowser) {
-      const signin: AuthSigninResponse = response.data as AuthSigninResponse;
-      if (signin?.token) {
-        localStorage.setItem("token", signin.token);
-      }
-      localStorage.setItem(
-        "user",
-        JSON.stringify({ email: signin.email, name: signin.name })
-      );
+    const responseData = response.data as AuthSigninResponse;
+
+    // localStorage 조작은 auth-store에서 처리하므로 여기서는 제거
+    // 토큰은 인터셉터에서 자동으로 헤더에 추가됨
+    if (isBrowser && responseData?.token) {
+      localStorage.setItem("token", responseData.token);
     }
-    return response.data;
+
+    return responseData;
   },
 
   signout: () => {
     if (isBrowser) {
       localStorage.removeItem("token");
       localStorage.removeItem("user");
-      window.location.href = "/login";
+      // 리다이렉트는 auth-store나 컴포넌트에서 처리
     }
   },
 
