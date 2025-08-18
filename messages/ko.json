@@ -1066,5 +1066,30 @@
         "systemAlerts": "시스템 경고"
       }
     }
+  },
+  "constants": {
+    "subscriptionFrequencies": {
+      "weekly": "매주",
+      "biweekly": "2주마다",
+      "monthly": "매월"
+    },
+    "roastLevels": {
+      "light": "라이트 로스트",
+      "medium": "미디엄 로스트",
+      "dark": "다크 로스트"
+    },
+    "brewMethods": {
+      "espresso": "에스프레소",
+      "pourOver": "푸어 오버",
+      "frenchPress": "프렌치 프레스",
+      "aeropress": "에어로프레스"
+    },
+    "flavorNotes": {
+      "fruity": "과일향",
+      "nutty": "견과류향",
+      "chocolate": "초콜릿향",
+      "floral": "꽃향",
+      "spicy": "스파이시"
+    }
   }
 }

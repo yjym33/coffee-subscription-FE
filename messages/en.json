@@ -1065,5 +1065,30 @@
         "systemAlerts": "System Alerts"
       }
     }
+  },
+  "constants": {
+    "subscriptionFrequencies": {
+      "weekly": "Weekly",
+      "biweekly": "Every 2 weeks",
+      "monthly": "Monthly"
+    },
+    "roastLevels": {
+      "light": "Light Roast",
+      "medium": "Medium Roast",
+      "dark": "Dark Roast"
+    },
+    "brewMethods": {
+      "espresso": "Espresso",
+      "pourOver": "Pour Over",
+      "frenchPress": "French Press",
+      "aeropress": "AeroPress"
+    },
+    "flavorNotes": {
+      "fruity": "Fruity",
+      "nutty": "Nutty",
+      "chocolate": "Chocolate",
+      "floral": "Floral",
+      "spicy": "Spicy"
+    }
   }
 }

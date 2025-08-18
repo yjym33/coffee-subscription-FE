@@ -1,26 +1,30 @@
+// 구독 주기 값들 (라벨은 i18n에서 가져옴: constants.subscriptionFrequencies.{value})
 export const SUBSCRIPTION_FREQUENCIES = [
-  { value: "weekly", label: "매주" },
-  { value: "biweekly", label: "2주마다" },
-  { value: "monthly", label: "매월" },
+  { value: "weekly", labelKey: "constants.subscriptionFrequencies.weekly" },
+  { value: "biweekly", labelKey: "constants.subscriptionFrequencies.biweekly" },
+  { value: "monthly", labelKey: "constants.subscriptionFrequencies.monthly" },
 ];
 
+// 로스트 레벨 값들 (라벨은 i18n에서 가져옴: constants.roastLevels.{value})
 export const ROAST_LEVELS = [
-  { value: "light", label: "라이트 로스트" },
-  { value: "medium", label: "미디엄 로스트" },
-  { value: "dark", label: "다크 로스트" },
+  { value: "light", labelKey: "constants.roastLevels.light" },
+  { value: "medium", labelKey: "constants.roastLevels.medium" },
+  { value: "dark", labelKey: "constants.roastLevels.dark" },
 ];
 
+// 추출 방법 값들 (라벨은 i18n에서 가져옴: constants.brewMethods.{value})
 export const BREW_METHODS = [
-  { value: "espresso", label: "에스프레소" },
-  { value: "pourOver", label: "푸어 오버" },
-  { value: "frenchPress", label: "프렌치 프레스" },
-  { value: "aeropress", label: "에어로프레스" },
+  { value: "espresso", labelKey: "constants.brewMethods.espresso" },
+  { value: "pourOver", labelKey: "constants.brewMethods.pourOver" },
+  { value: "frenchPress", labelKey: "constants.brewMethods.frenchPress" },
+  { value: "aeropress", labelKey: "constants.brewMethods.aeropress" },
 ];
 
+// 향미 노트 값들 (라벨은 i18n에서 가져옴: constants.flavorNotes.{value})
 export const FLAVOR_NOTES = [
-  { value: "fruity", label: "과일향" },
-  { value: "nutty", label: "견과류향" },
-  { value: "chocolate", label: "초콜릿향" },
-  { value: "floral", label: "꽃향" },
-  { value: "spicy", label: "스파이시" },
+  { value: "fruity", labelKey: "constants.flavorNotes.fruity" },
+  { value: "nutty", labelKey: "constants.flavorNotes.nutty" },
+  { value: "chocolate", labelKey: "constants.flavorNotes.chocolate" },
+  { value: "floral", labelKey: "constants.flavorNotes.floral" },
+  { value: "spicy", labelKey: "constants.flavorNotes.spicy" },
 ];
